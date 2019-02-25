@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - CryptoAssetsApplication",
+            "request": "launch",
+            "mainClass": "io.ikatoo.cryptoassets.CryptoAssetsApplication",
+            "projectName": "cryptoassets"
+        }
+    ]
+}

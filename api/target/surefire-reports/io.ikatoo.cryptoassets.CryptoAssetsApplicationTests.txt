@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: io.ikatoo.cryptoassets.CryptoAssetsApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.764 s <<< FAILURE! - in io.ikatoo.cryptoassets.CryptoAssetsApplicationTests
+initializationError(io.ikatoo.cryptoassets.CryptoAssetsApplicationTests)  Time elapsed: 0.01 s  <<< ERROR!
+java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test
+
