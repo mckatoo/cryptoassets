@@ -5,14 +5,22 @@
  */
 package io.ikatoo.cryptoassets.interfaces;
 
+import io.ikatoo.cryptoassets.models.Portifolio;
+import io.ikatoo.cryptoassets.models.abstracts.PortifolioATM;
 import io.ikatoo.cryptoassets.services.AccountService;
+import java.awt.FontMetrics;
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.util.Vector;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,6 +29,8 @@ import org.json.JSONObject;
  * @author mckatoo
  */
 public class FrmPortifolio extends javax.swing.JInternalFrame {
+
+    private PortifolioATM model = new PortifolioATM();
 
     /**
      * Creates new form frmPortifolio
@@ -65,23 +75,14 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
             }
         });
 
-        tbAssets.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Icon", "Asset", "Buy", "Sell", "Current", "Profit", "In Order", "Total Balance"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        tbAssets.setModel(model);
+        tbAssets.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbAssets.getTableHeader().setReorderingAllowed(false);
+        tbAssets.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbAssetsMouseClicked(evt);
             }
         });
-        tbAssets.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbAssets);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -96,7 +97,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -108,6 +109,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formFocusGained
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+
         AccountService http = new AccountService();
 
         long now = new Timestamp(System.currentTimeMillis()).getTime();
@@ -115,37 +117,49 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
         try {
             JSONArray resultado = http.getBalances(10000, now);
 
-            DefaultTableModel dtm = (DefaultTableModel) tbAssets.getModel();
-
             for (int i = 0; i < resultado.length(); i++) {
                 JSONObject json = (JSONObject) resultado.get(i);
 
-                BigDecimal free = new BigDecimal(json.get("free").toString()).setScale(8, RoundingMode.HALF_EVEN);
-                BigDecimal locked = new BigDecimal(json.get("locked").toString()).setScale(8, RoundingMode.HALF_EVEN);
+                BigDecimal free = new BigDecimal(json.get("free").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                BigDecimal locked = new BigDecimal(json.get("locked").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                BigDecimal zero = new BigDecimal("0.00000000").setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
 
-                if ((free.doubleValue() > 0.00000000) || (locked.doubleValue() > 0.00000000)) {
-                    dtm.addRow(new Object[]{
-                        null,
-                        json.get("asset").toString(),
-                        "33333",
-                        "33333",
-                        "44444",
-                        "55555",
-                        locked.toString(),
-                        free.toString()
-                    });
+                if ((free.compareTo(zero) == 1) || (locked.compareTo(zero) == 1)) {
+                    JLabel labelImage = new JLabel();
+                    String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + json.get("asset").toString().toLowerCase() + ".png";
+                    labelImage.setIcon(new ImageIcon(pathImage));
+
+                    Portifolio portifolio = new Portifolio(
+                            labelImage,
+                            json.get("asset").toString(), //ASSET EX. BTC
+                            zero, //BUY VALUE
+                            new Date(), //DATE BUY
+                            zero, //SELL VALUE
+                            new Date(), //DATE SELL
+                            zero, //CURRENT
+                            zero, //PROFIT 
+                            free, //FREE
+                            locked, //IN ORDER
+                            locked.add(free) //TOTAL BALANCE
+                    );
+
+                    model.add(portifolio);
+                    tbAssets.getColumnModel().getColumn(0).setPreferredWidth(10);
+                    tbAssets.getColumnModel().getColumn(1).setPreferredWidth(10);
                 }
             }
 
-            tbAssets.setModel(dtm);
-
-            System.out.println(resultado.get(0));
         } catch (Exception ex) {
             Logger.getLogger(FrmPortifolio.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
     }//GEN-LAST:event_formComponentShown
+
+    private void tbAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseClicked
+        Portifolio portifolio = model.getPortifolio(tbAssets.getSelectedRow());
+        System.out.println(portifolio.getAsset() + " = " + portifolio.getTotalBalance());
+    }//GEN-LAST:event_tbAssetsMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

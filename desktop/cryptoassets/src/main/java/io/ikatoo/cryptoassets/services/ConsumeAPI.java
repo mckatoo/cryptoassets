@@ -13,6 +13,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import javafx.scene.Parent;
+import javax.swing.JOptionPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -61,7 +63,9 @@ public class ConsumeAPI {
             httpClient.close();
 
         } catch (ClientProtocolException e) {
+            JOptionPane.showMessageDialog(null,e);
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,e);
         }
 
         return outputString;
