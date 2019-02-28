@@ -19,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
 public class PortifolioATM extends AbstractTableModel {
     
     private final List<Portifolio> _portifolio = new ArrayList();
-    private final DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private final DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm");
 
     @Override
     public int getRowCount() {

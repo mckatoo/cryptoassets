@@ -18,6 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -139,13 +141,20 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                             locked.add(free) //TOTAL BALANCE
                     );
 
-                    
                     _model.add(portifolio);
                     tbAssets.setModel(_model);
-                    tbAssets.setRowHeight(50);
+                    tbAssets.setRowHeight(40);
                     tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
-                    tbAssets.getColumnModel().getColumn(0).setPreferredWidth(50);
-                    tbAssets.getColumnModel().getColumn(1).setPreferredWidth(50);
+
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+                    for (int j = 1; j < 11; j++) {
+                        tbAssets.getColumnModel().getColumn(j).setCellRenderer(centralizado);
+                    }
+
+                    tbAssets.getColumnModel().getColumn(1).setPreferredWidth(6);
+                    tbAssets.getColumnModel().getColumn(7).setPreferredWidth(6);
                 }
             }
 

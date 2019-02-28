@@ -6,6 +6,7 @@
 package io.ikatoo.cryptoassets.interfaces.renderers;
 
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -14,27 +15,9 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class Renderers extends DefaultTableCellRenderer {
     
-//    JLabel lbl = new JLabel();
-//    public String pathImage;
-//    public static ImageIcon[] images = {};
-
-//    public void setImages(int i, ImageIcon images) {
-//        this.images[i] = images;
-//    }
-
-//    @Override
-//    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//        
-//        lbl.setText((String) value);
-//        lbl.setIcon(images[row]);
-//        setHorizontalAlignment(CENTER);
-//        setHorizontalTextPosition(CENTER);
-//        
-//        return lbl;
-//    }
-    
     @Override
     protected void setValue(Object value) {
+        setHorizontalAlignment(SwingConstants.CENTER);
         if (value instanceof ImageIcon) {
             if (value != null) {
                 ImageIcon d = (ImageIcon) value;
