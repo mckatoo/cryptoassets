@@ -5,22 +5,19 @@
  */
 package io.ikatoo.cryptoassets.interfaces;
 
+import io.ikatoo.cryptoassets.interfaces.renderers.Renderers;
 import io.ikatoo.cryptoassets.models.Portifolio;
 import io.ikatoo.cryptoassets.models.abstracts.PortifolioATM;
 import io.ikatoo.cryptoassets.services.AccountService;
-import java.awt.FontMetrics;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,7 +27,7 @@ import org.json.JSONObject;
  */
 public class FrmPortifolio extends javax.swing.JInternalFrame {
 
-    private PortifolioATM model = new PortifolioATM();
+    private final PortifolioATM _model = new PortifolioATM();
 
     /**
      * Creates new form frmPortifolio
@@ -60,7 +57,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbAssets = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(254, 254, 254));
+        setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
         setTitle("Portifolio Balance");
         setFrameIcon(new javax.swing.ImageIcon("/home/mckatoo/projetos/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-attach_money-white-18/1x/sharp_attach_money_white_18dp.png")); // NOI18N
@@ -75,7 +72,6 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
             }
         });
 
-        tbAssets.setModel(model);
         tbAssets.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbAssets.getTableHeader().setReorderingAllowed(false);
         tbAssets.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,10 +92,10 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -130,7 +126,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                     labelImage.setIcon(new ImageIcon(pathImage));
 
                     Portifolio portifolio = new Portifolio(
-                            labelImage,
+                            new ImageIcon(pathImage),
                             json.get("asset").toString(), //ASSET EX. BTC
                             zero, //BUY VALUE
                             new Date(), //DATE BUY
@@ -143,9 +139,13 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                             locked.add(free) //TOTAL BALANCE
                     );
 
-                    model.add(portifolio);
-                    tbAssets.getColumnModel().getColumn(0).setPreferredWidth(10);
-                    tbAssets.getColumnModel().getColumn(1).setPreferredWidth(10);
+                    
+                    _model.add(portifolio);
+                    tbAssets.setModel(_model);
+                    tbAssets.setRowHeight(50);
+                    tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
+                    tbAssets.getColumnModel().getColumn(0).setPreferredWidth(50);
+                    tbAssets.getColumnModel().getColumn(1).setPreferredWidth(50);
                 }
             }
 
@@ -157,7 +157,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void tbAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseClicked
-        Portifolio portifolio = model.getPortifolio(tbAssets.getSelectedRow());
+        Portifolio portifolio = _model.getPortifolio(tbAssets.getSelectedRow());
         System.out.println(portifolio.getAsset() + " = " + portifolio.getTotalBalance());
     }//GEN-LAST:event_tbAssetsMouseClicked
 

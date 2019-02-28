@@ -8,6 +8,7 @@ package io.ikatoo.cryptoassets.models;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -15,7 +16,7 @@ import javax.swing.JLabel;
  * @author mckatoo
  */
 public class Portifolio {
-    private JLabel Icon;
+    private ImageIcon Icon;
     private String Asset;
     private BigDecimal Buy;
     private Date DateBuy;
@@ -27,7 +28,7 @@ public class Portifolio {
     private BigDecimal InOrder;
     private BigDecimal TotalBalance;
 
-    public Portifolio(JLabel Icon, String Asset, BigDecimal Buy, Date DateBuy, BigDecimal Sell, Date DateSell, BigDecimal Current, BigDecimal Profit, BigDecimal Free, BigDecimal InOrder, BigDecimal TotalBalance) {
+    public Portifolio(ImageIcon Icon, String Asset, BigDecimal Buy, Date DateBuy, BigDecimal Sell, Date DateSell, BigDecimal Current, BigDecimal Profit, BigDecimal Free, BigDecimal InOrder, BigDecimal TotalBalance) {
         this.Icon = Icon;
         this.Asset = Asset;
         this.Buy = Buy;
@@ -41,11 +42,11 @@ public class Portifolio {
         this.TotalBalance = TotalBalance;
     }
 
-    public JLabel getIcon() {
+    public ImageIcon getIcon() {
         return Icon;
     }
 
-    public void setIcon(JLabel Icon) {
+    public void setIcon(ImageIcon Icon) {
         this.Icon = Icon;
     }
 

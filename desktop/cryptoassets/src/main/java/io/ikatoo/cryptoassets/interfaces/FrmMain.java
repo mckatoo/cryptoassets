@@ -57,7 +57,6 @@ public class FrmMain extends javax.swing.JFrame {
         setName("frmMain"); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(26, 82, 134));
-        jPanel1.setBorder(null);
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         jButton3.setBackground(new java.awt.Color(0, 51, 153));
@@ -109,7 +108,6 @@ public class FrmMain extends javax.swing.JFrame {
         jPanel1.add(jButton2);
 
         jPanel3.setBackground(new java.awt.Color(26, 82, 134));
-        jPanel3.setBorder(null);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -123,7 +121,6 @@ public class FrmMain extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(26, 82, 134));
-        jPanel4.setBorder(null);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -137,8 +134,6 @@ public class FrmMain extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
-
-        jDesktopPane1.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
