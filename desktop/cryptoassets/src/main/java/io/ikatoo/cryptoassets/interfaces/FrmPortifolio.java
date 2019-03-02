@@ -41,7 +41,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
      * Creates new form frmPortifolio
      */
     public FrmPortifolio() {
-        _executorService = Executors.newFixedThreadPool(4);
+        _executorService = Executors.newFixedThreadPool(10);
         initComponents();
     }
 
@@ -142,26 +142,36 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                     OrdersService orderService = new OrdersService();
 
                     try {
-                        JSONArray balance = accountService.getBalances(10000);
-                        JSONArray allOrders = orderService.getAllOrders("LTCBTC");
+                        JSONArray balance = accountService.getBalances();
 
                         PortifolioATM model = new PortifolioATM();
 
                         for (int i = 0; i < balance.length(); i++) {
-                            JSONObject json = (JSONObject) balance.get(i);
+                            JSONObject jsonBalance = (JSONObject) balance.get(i);
 
-                            BigDecimal free = new BigDecimal(json.get("free").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
-                            BigDecimal locked = new BigDecimal(json.get("locked").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                            BigDecimal free = new BigDecimal(jsonBalance.get("free").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                            BigDecimal locked = new BigDecimal(jsonBalance.get("locked").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
                             BigDecimal zero = new BigDecimal("0.00000000").setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
 
+//                            JSONArray jsonAllOrders;
+//                            BigDecimal averageValueLastOrders = zero;
+//                            
+//                            if (jsonBalance.get("asset").toString().equalsIgnoreCase("btc")) {
+//                                jsonAllOrders = orderService.getAllOrders(jsonBalance.get("asset").toString().toUpperCase() + "USDT");
+//                            } else {
+//                                jsonAllOrders = orderService.getAllOrders(
+//                                        jsonBalance.get("asset").toString().toUpperCase() + "BTC"
+//                                );
+//                            }
+                            
                             if ((free.compareTo(zero) == 1) || (locked.compareTo(zero) == 1)) {
                                 JLabel labelImage = new JLabel();
-                                String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + json.get("asset").toString().toLowerCase() + ".png";
+                                String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + jsonBalance.get("asset").toString().toLowerCase() + ".png";
                                 labelImage.setIcon(new ImageIcon(pathImage));
 
                                 Portifolio portifolio = new Portifolio(
                                         new ImageIcon(pathImage),
-                                        json.get("asset").toString(), //ASSET EX. BTC
+                                        jsonBalance.get("asset").toString(), //ASSET EX. BTC
                                         zero, //BUY VALUE
                                         new Date(), //DATE BUY
                                         zero, //SELL VALUE
@@ -203,8 +213,6 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void tbAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseClicked
-//        Portifolio portifolio = model.getPortifolio(tbAssets.getSelectedRow());
-//        System.out.println(portifolio.getAsset() + " = " + portifolio.getTotalBalance());
         System.out.println(tbAssets.getValueAt(tbAssets.getSelectedRow(), 10));
     }//GEN-LAST:event_tbAssetsMouseClicked
 

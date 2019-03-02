@@ -27,6 +27,8 @@ public class OrdersService extends ConsumeAPI {
         String query = "symbol=" + symbol + "&orderId=" + orderId + "&startTime=" + startTime + "&endTime=" + endTime + "&limit=" + limit + "&recvWindow=" + recvWindow + "&timestamp=" + now;
         String signature = "signature=" + ApiSecurity.encode(_secret, query);
         String url = "https://api.binance.com/api/v3/allOrders?" + query + "&" + signature;
+        
+        System.out.println(url);
 
         JSONArray json = new JSONArray(httpClientResponse(url));
         return json;
