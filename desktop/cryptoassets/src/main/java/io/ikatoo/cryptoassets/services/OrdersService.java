@@ -22,26 +22,49 @@ public class OrdersService extends ConsumeAPI {
         }
         return instance;
     }
-    
-     
-//    public JSONObject getAllOrders(String symbol,long orderId,long startTime,long endTime,int limit,long recvWindow,long timestamp) throws Exception {
-    public JSONArray getAllOrders(String symbol,long orderId,long startTime,long endTime,int limit,long recvWindow,long timestamp) throws Exception {
-        String query = "symbol="+symbol+"&orderId="+orderId+"&startTime="+startTime+"&endTime="+endTime+"&limit="+limit+"&recvWindow="+recvWindow+"&timestamp="+timestamp;
-        String signature = "signature="+ApiSecurity.encode(_secret, query); //4a6d37d4301ed5faaee681ab9d1549dcc85655c6489cbf3d7f90628917a95526
+
+    public JSONArray getAllOrders(String symbol, long orderId, long startTime, long endTime, int limit, long recvWindow) throws Exception {
+        String query = "symbol=" + symbol + "&orderId=" + orderId + "&startTime=" + startTime + "&endTime=" + endTime + "&limit=" + limit + "&recvWindow=" + recvWindow + "&timestamp=" + now;
+        String signature = "signature=" + ApiSecurity.encode(_secret, query);
         String url = "https://api.binance.com/api/v3/allOrders?" + query + "&" + signature;
-        
+
         JSONArray json = new JSONArray(httpClientResponse(url));
         return json;
     }
-    
-    public JSONObject getOpenOrders(String symbol, long recWindow,long timestamp) throws Exception {
-        String query = "symbol="+symbol+"&recvWindow="+recWindow+"&timestamp="+timestamp;
-        String signature = "signature="+ApiSecurity.encode(_secret, query);
+
+    public JSONArray getAllOrders(String symbol, long startTime, long endTime, int limit, long recvWindow) throws Exception {
+        long orderId = 0;
+        return getAllOrders(symbol, orderId, startTime, endTime, limit, recvWindow);
+    }
+
+    public JSONArray getAllOrders(String symbol, long endTime, int limit, long recvWindow) throws Exception {
+        long startTime = 0;
+        return getAllOrders(symbol, startTime, endTime, limit, recvWindow);
+    }
+
+    public JSONArray getAllOrders(String symbol, int limit, long recvWindow) throws Exception {
+        long endTime = 0;
+        return getAllOrders(symbol, endTime, limit, recvWindow);
+    }
+
+    public JSONArray getAllOrders(String symbol, long recvWindow) throws Exception {
+        int limit = 500;
+        return getAllOrders(symbol, limit, recvWindow);
+    }
+
+    public JSONArray getAllOrders(String symbol) throws Exception {
+        long recvWindow = 5000;
+        return getAllOrders(symbol, recvWindow);
+    }
+
+    public JSONObject getOpenOrders(String symbol, long recWindow) throws Exception {
+        String query = "symbol=" + symbol + "&recvWindow=" + recWindow + "&timestamp=" + now;
+        String signature = "signature=" + ApiSecurity.encode(_secret, query);
         String url = "https://api.binance.com/api/v3/openOrders?" + query + "&" + signature;
-        
+
         JSONObject json = new JSONObject(httpClientResponse(url));
-        
+
         return json;
     }
-    
+
 }

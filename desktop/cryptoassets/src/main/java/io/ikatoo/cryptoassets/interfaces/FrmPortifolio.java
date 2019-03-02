@@ -9,11 +9,16 @@ import io.ikatoo.cryptoassets.interfaces.renderers.Renderers;
 import io.ikatoo.cryptoassets.models.Portifolio;
 import io.ikatoo.cryptoassets.models.abstracts.PortifolioATM;
 import io.ikatoo.cryptoassets.services.AccountService;
+import io.ikatoo.cryptoassets.services.OrdersService;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -29,12 +34,14 @@ import org.json.JSONObject;
  */
 public class FrmPortifolio extends javax.swing.JInternalFrame {
 
-    private final PortifolioATM _model = new PortifolioATM();
+    private final ExecutorService _executorService;
+//    private PortifolioATM _model = new PortifolioATM();
 
     /**
      * Creates new form frmPortifolio
      */
     public FrmPortifolio() {
+        _executorService = Executors.newFixedThreadPool(4);
         initComponents();
     }
 
@@ -66,6 +73,23 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
+            }
+        });
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -108,67 +132,85 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
 
-        AccountService http = new AccountService();
+        Future<Void> future = _executorService.submit(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
 
-        long now = new Timestamp(System.currentTimeMillis()).getTime();
+                while (true) {
+                    TimeUnit.SECONDS.sleep(3);
+                    AccountService accountService = new AccountService();
+                    OrdersService orderService = new OrdersService();
 
-        try {
-            JSONArray resultado = http.getBalances(10000, now);
+                    try {
+                        JSONArray balance = accountService.getBalances(10000);
+                        JSONArray allOrders = orderService.getAllOrders("LTCBTC");
 
-            for (int i = 0; i < resultado.length(); i++) {
-                JSONObject json = (JSONObject) resultado.get(i);
+                        PortifolioATM model = new PortifolioATM();
 
-                BigDecimal free = new BigDecimal(json.get("free").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
-                BigDecimal locked = new BigDecimal(json.get("locked").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
-                BigDecimal zero = new BigDecimal("0.00000000").setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                        for (int i = 0; i < balance.length(); i++) {
+                            JSONObject json = (JSONObject) balance.get(i);
 
-                if ((free.compareTo(zero) == 1) || (locked.compareTo(zero) == 1)) {
-                    JLabel labelImage = new JLabel();
-                    String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + json.get("asset").toString().toLowerCase() + ".png";
-                    labelImage.setIcon(new ImageIcon(pathImage));
+                            BigDecimal free = new BigDecimal(json.get("free").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                            BigDecimal locked = new BigDecimal(json.get("locked").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                            BigDecimal zero = new BigDecimal("0.00000000").setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
 
-                    Portifolio portifolio = new Portifolio(
-                            new ImageIcon(pathImage),
-                            json.get("asset").toString(), //ASSET EX. BTC
-                            zero, //BUY VALUE
-                            new Date(), //DATE BUY
-                            zero, //SELL VALUE
-                            new Date(), //DATE SELL
-                            zero, //CURRENT
-                            zero, //PROFIT 
-                            free, //FREE
-                            locked, //IN ORDER
-                            locked.add(free) //TOTAL BALANCE
-                    );
+                            if ((free.compareTo(zero) == 1) || (locked.compareTo(zero) == 1)) {
+                                JLabel labelImage = new JLabel();
+                                String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + json.get("asset").toString().toLowerCase() + ".png";
+                                labelImage.setIcon(new ImageIcon(pathImage));
 
-                    _model.add(portifolio);
-                    tbAssets.setModel(_model);
-                    tbAssets.setRowHeight(40);
-                    tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
+                                Portifolio portifolio = new Portifolio(
+                                        new ImageIcon(pathImage),
+                                        json.get("asset").toString(), //ASSET EX. BTC
+                                        zero, //BUY VALUE
+                                        new Date(), //DATE BUY
+                                        zero, //SELL VALUE
+                                        new Date(), //DATE SELL
+                                        zero, //CURRENT
+                                        new BigDecimal("100.00"), //PROFIT 
+                                        free, //FREE
+                                        locked, //IN ORDER
+                                        locked.add(free) //TOTAL BALANCE
+                                );
 
-                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                                model.add(portifolio);
+                                tbAssets.setModel(model);
+                                tbAssets.setRowHeight(40);
+                                tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
 
-                    for (int j = 1; j < 11; j++) {
-                        tbAssets.getColumnModel().getColumn(j).setCellRenderer(centralizado);
+                                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+                                for (int j = 1; j < 11; j++) {
+                                    tbAssets.getColumnModel().getColumn(j).setCellRenderer(centralizado);
+                                }
+
+                                tbAssets.getColumnModel().getColumn(0).setMaxWidth(40);
+                                tbAssets.getColumnModel().getColumn(1).setMaxWidth(50);
+                                tbAssets.getColumnModel().getColumn(7).setMaxWidth(70);
+                            }
+                        }
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(FrmPortifolio.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    tbAssets.getColumnModel().getColumn(1).setPreferredWidth(6);
-                    tbAssets.getColumnModel().getColumn(7).setPreferredWidth(6);
                 }
+//                return null;
             }
-
-        } catch (Exception ex) {
-            Logger.getLogger(FrmPortifolio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        });
 
     }//GEN-LAST:event_formComponentShown
 
     private void tbAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseClicked
-        Portifolio portifolio = _model.getPortifolio(tbAssets.getSelectedRow());
-        System.out.println(portifolio.getAsset() + " = " + portifolio.getTotalBalance());
+//        Portifolio portifolio = model.getPortifolio(tbAssets.getSelectedRow());
+//        System.out.println(portifolio.getAsset() + " = " + portifolio.getTotalBalance());
+        System.out.println(tbAssets.getValueAt(tbAssets.getSelectedRow(), 10));
     }//GEN-LAST:event_tbAssetsMouseClicked
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+
+    }//GEN-LAST:event_formInternalFrameActivated
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

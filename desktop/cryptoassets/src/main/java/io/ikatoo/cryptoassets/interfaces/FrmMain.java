@@ -5,8 +5,16 @@
  */
 package io.ikatoo.cryptoassets.interfaces;
 
+import io.ikatoo.cryptoassets.services.GeneralService;
 import io.ikatoo.cryptoassets.uteis.FormManager;
+import java.awt.Color;
 import java.beans.PropertyVetoException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,12 +27,32 @@ public class FrmMain extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(4);
+    private static final GeneralService generalService = new GeneralService();
+
     public FrmMain() {
         initComponents();
     }
-    
+
+    private void verificaConexao() throws InterruptedException, ExecutionException {
+        while (true) {
+            TimeUnit.SECONDS.sleep(1);
+            if (generalService.ping()) {
+                System.out.println("+++ On Line +++");
+                lbStatus.setText("On Line");
+                lbStatus.setForeground(Color.black);
+                pnStatus.setBackground(Color.decode("#60ff83"));
+            } else {
+                System.out.println("--- Off Line ---");
+                lbStatus.setText("Off Line");
+                lbStatus.setForeground(Color.white);
+                pnStatus.setBackground(Color.decode("#c90c0c"));
+            }
+        }
+    }
+
     private static FrmMain instance;
-    
+
     private static FrmMain getInstance() {
         if (instance == null) {
             instance = new FrmMain();
@@ -46,6 +74,8 @@ public class FrmMain extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        pnStatus = new javax.swing.JPanel();
+        lbStatus = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -55,6 +85,11 @@ public class FrmMain extends javax.swing.JFrame {
         setBackground(new java.awt.Color(73, 81, 176));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setName("frmMain"); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(26, 82, 134));
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
@@ -109,15 +144,38 @@ public class FrmMain extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(26, 82, 134));
 
+        lbStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout pnStatusLayout = new javax.swing.GroupLayout(pnStatus);
+        pnStatus.setLayout(pnStatusLayout);
+        pnStatusLayout.setHorizontalGroup(
+            pnStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnStatusLayout.createSequentialGroup()
+                .addComponent(lbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
+        );
+        pnStatusLayout.setVerticalGroup(
+            pnStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnStatusLayout.createSequentialGroup()
+                .addComponent(lbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 27, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(26, 82, 134));
@@ -130,7 +188,7 @@ public class FrmMain extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 375, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
@@ -143,7 +201,7 @@ public class FrmMain extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,8 +221,8 @@ public class FrmMain extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -173,31 +231,64 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        FrmDefinitions definitions = new FrmDefinitions();
-        try {
-            FormManager.openInternalForm(definitions, jDesktopPane1);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        Future<Void> future = executorService.submit(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                FrmDefinitions definitions = new FrmDefinitions();
+                try {
+                    FormManager.openInternalForm(definitions, jDesktopPane1);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return null;
+            }
+        });
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        FrmPortifolio portifolio = new FrmPortifolio();
-        try {
-            FormManager.openInternalForm(portifolio, jDesktopPane1);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        Future<Void> future = executorService.submit(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                FrmPortifolio portifolio = new FrmPortifolio();
+                try {
+                    FormManager.openInternalForm(portifolio, jDesktopPane1);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return null;
+            }
+        });
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FrmGraphics graphics = new FrmGraphics();
-        try {
-            FormManager.openInternalForm(graphics, jDesktopPane1);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        Future<Void> future = executorService.submit(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                FrmGraphics graphics = new FrmGraphics();
+                try {
+                    FormManager.openInternalForm(graphics, jDesktopPane1);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return null;
+            }
+        });
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        Future<Void> future = executorService.submit(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                verificaConexao();
+                return null;
+            }
+        });
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -234,8 +325,7 @@ public class FrmMain extends javax.swing.JFrame {
             new FrmMain().setVisible(true);
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton jButton1;
@@ -246,5 +336,7 @@ public class FrmMain extends javax.swing.JFrame {
     javax.swing.JPanel jPanel2;
     javax.swing.JPanel jPanel3;
     javax.swing.JPanel jPanel4;
+    javax.swing.JLabel lbStatus;
+    javax.swing.JPanel pnStatus;
     // End of variables declaration//GEN-END:variables
 }
