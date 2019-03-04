@@ -27,8 +27,6 @@ public class ConsumeAPI {
 
     public static String _secret;
 
-    private static final ExecutorService executorService = Executors.newFixedThreadPool(1);
-
     long now = new Timestamp(System.currentTimeMillis()).getTime();
 
     private static ConsumeAPI instance;
@@ -62,10 +60,10 @@ public class ConsumeAPI {
     public String httpClientResponse(String url) {
 
         String outputString = null;
-
+        
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             HttpGet getRequest = new HttpGet(url);
-            getRequest.addHeader("X-MBX-APIKEY", "yesxXQ52di1D2RyMMst97NCRy2dHsBrXzShoSaXXEmVRvJG3wVZm7qtn3AM3zNK0");
+            getRequest.addHeader("X-MBX-APIKEY", Local.getApiKey());
 
             HttpResponse response = httpClient.execute(getRequest);
 

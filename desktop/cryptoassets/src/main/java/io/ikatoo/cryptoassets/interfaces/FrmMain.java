@@ -38,12 +38,10 @@ public class FrmMain extends javax.swing.JFrame {
         while (true) {
             TimeUnit.SECONDS.sleep(1);
             if (generalService.ping()) {
-                System.out.println("+++ On Line +++");
                 lbStatus.setText("On Line");
                 lbStatus.setForeground(Color.black);
                 pnStatus.setBackground(Color.decode("#60ff83"));
             } else {
-                System.out.println("--- Off Line ---");
                 lbStatus.setText("Off Line");
                 lbStatus.setForeground(Color.white);
                 pnStatus.setBackground(Color.decode("#c90c0c"));

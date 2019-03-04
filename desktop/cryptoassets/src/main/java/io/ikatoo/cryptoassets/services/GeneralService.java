@@ -6,6 +6,7 @@
 package io.ikatoo.cryptoassets.services;
 
 import org.apache.http.HttpResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -25,15 +26,16 @@ public class GeneralService extends ConsumeAPI {
     public boolean ping() {
         boolean connected = false;
         try {
-            HttpResponse response = getResponse("https://api.binance.com/api/v1/ping");
-            if (response.getStatusLine().getStatusCode() == 200) {
-                connected = true;
-            }
+            connected = getResponse("https://api.binance.com/api/v1/ping").getStatusLine().getStatusCode() == 200;
         } catch (Exception e) {
             System.out.println(e);
-            connected = false;
         }
         return connected;
+    }
+
+    public Long serverTime() {
+        JSONObject jsonServerTime = new JSONObject(httpClientResponse("https://api.binance.com/api/v1/time"));
+        return Long.parseLong(jsonServerTime.get("serverTime").toString());
     }
 
 }

@@ -24,13 +24,17 @@ public class OrdersService extends ConsumeAPI {
     }
 
     public JSONArray getAllOrders(String symbol, long orderId, long startTime, long endTime, int limit, long recvWindow) throws Exception {
-        String query = "symbol=" + symbol + "&orderId=" + orderId + "&startTime=" + startTime + "&endTime=" + endTime + "&limit=" + limit + "&recvWindow=" + recvWindow + "&timestamp=" + now;
-        String signature = "signature=" + ApiSecurity.encode(_secret, query);
-        String url = "https://api.binance.com/api/v3/allOrders?" + query + "&" + signature;
-        
-        System.out.println(url);
 
-        JSONArray json = new JSONArray(httpClientResponse(url));
+        JSONArray json = null;
+
+        if (new RequestValidate().Validate(now, recvWindow)) {
+            String query = "symbol=" + symbol + "&orderId=" + orderId + "&startTime=" + startTime + "&endTime=" + endTime + "&limit=" + limit + "&recvWindow=" + recvWindow + "&timestamp=" + now;
+            String signature = "signature=" + ApiSecurity.encode(_secret, query);
+            String url = "https://api.binance.com/api/v3/allOrders?" + query + "&" + signature;
+
+            json = new JSONArray(httpClientResponse(url));
+        }
+
         return json;
     }
 
@@ -59,12 +63,17 @@ public class OrdersService extends ConsumeAPI {
         return getAllOrders(symbol, recvWindow);
     }
 
-    public JSONObject getOpenOrders(String symbol, long recWindow) throws Exception {
-        String query = "symbol=" + symbol + "&recvWindow=" + recWindow + "&timestamp=" + now;
-        String signature = "signature=" + ApiSecurity.encode(_secret, query);
-        String url = "https://api.binance.com/api/v3/openOrders?" + query + "&" + signature;
+    public JSONObject getOpenOrders(String symbol, long recvWindow) throws Exception {
 
-        JSONObject json = new JSONObject(httpClientResponse(url));
+        JSONObject json = null;
+
+        if (new RequestValidate().Validate(now, recvWindow)) {
+            String query = "symbol=" + symbol + "&recvWindow=" + recvWindow + "&timestamp=" + now;
+            String signature = "signature=" + ApiSecurity.encode(_secret, query);
+            String url = "https://api.binance.com/api/v3/openOrders?" + query + "&" + signature;
+
+            json = new JSONObject(httpClientResponse(url));
+        }
 
         return json;
     }

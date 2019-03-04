@@ -13,7 +13,7 @@ import org.json.JSONObject;
  * @author mckatoo
  */
 public class AccountService extends ConsumeAPI {
-    
+
     private static AccountService instance;
 
     private static AccountService getInstance() {
@@ -22,26 +22,30 @@ public class AccountService extends ConsumeAPI {
         }
         return instance;
     }
-    
+
     public JSONObject getAccount(long recvWindow) throws Exception {
-        System.out.println(Long.bitCount(now));
-        String query = "recvWindow=" + recvWindow + "&timestamp=" + now;
-        String signature = "signature=" + ApiSecurity.encode(_secret, query);
-        String url = "https://api.binance.com/api/v3/account?" + query + "&" + signature;
-        JSONObject json = new JSONObject(httpClientResponse(url));
-        
+
+        JSONObject json = null;
+
+        if (new RequestValidate().Validate(now, recvWindow)) {
+            String query = "recvWindow=" + recvWindow + "&timestamp=" + now;
+            String signature = "signature=" + ApiSecurity.encode(_secret, query);
+            String url = "https://api.binance.com/api/v3/account?" + query + "&" + signature;
+            json = new JSONObject(httpClientResponse(url));
+        }
+
         return json;
     }
-    
+
     public JSONObject getAccount() throws Exception {
         long recvWindow = 5000;
         return getAccount(recvWindow);
     }
-    
+
     public JSONArray getBalances(long recvWindow) throws Exception {
         return (JSONArray) getAccount(recvWindow).get("balances");
     }
-    
+
     public JSONArray getBalances() throws Exception {
         long recvWindow = 5000;
         return getBalances(recvWindow);
