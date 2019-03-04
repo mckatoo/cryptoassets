@@ -5,9 +5,12 @@
  */
 package io.ikatoo.cryptoassets;
 
+import io.ikatoo.cryptoassets.db.Local;
 import io.ikatoo.cryptoassets.interfaces.FrmMain;
+import io.ikatoo.cryptoassets.services.ConsumeAPI;
 import io.ikatoo.cryptoassets.uteis.FormManager;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
 
 /**
  *
@@ -24,8 +27,9 @@ public class CryptoAssets {
         return instance;
     }
     
-    public static void main(String[] args) throws PropertyVetoException {
+    public static void main(String[] args) throws PropertyVetoException, IOException {
         FrmMain frmmain = new FrmMain();
         FormManager.openForm(frmmain);
+        ConsumeAPI._secret = Local.getSecretKey();
     }
 }

@@ -5,6 +5,7 @@
  */
 package io.ikatoo.cryptoassets.services;
 
+import io.ikatoo.cryptoassets.db.Local;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +25,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
  */
 public class ConsumeAPI {
 
-    public static String _secret = "pNg6fI3m0ABq9lEFebOyZ5pMaxmLpHkcJDOjmasKmCYbdnP11ea78iZwqZkIhsff";
+    public static String _secret;
 
     private static final ExecutorService executorService = Executors.newFixedThreadPool(1);
 
@@ -32,7 +33,7 @@ public class ConsumeAPI {
 
     private static ConsumeAPI instance;
 
-    private static ConsumeAPI getInstance() {
+    private static ConsumeAPI getInstance() throws IOException {
         if (instance == null) {
             instance = new ConsumeAPI();
         }
@@ -43,7 +44,7 @@ public class ConsumeAPI {
         HttpResponse response = null;
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             HttpGet getRequest = new HttpGet(url);
-            getRequest.addHeader("X-MBX-APIKEY", "yesxXQ52di1D2RyMMst97NCRy2dHsBrXzShoSaXXEmVRvJG3wVZm7qtn3AM3zNK0");
+            getRequest.addHeader("X-MBX-APIKEY", Local.getApiKey());
 
             response = httpClient.execute(getRequest);
 
