@@ -6,10 +6,8 @@
 package io.ikatoo.cryptoassets.models;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
@@ -20,21 +18,17 @@ public class Portifolio {
     private String Asset;
     private BigDecimal Buy;
     private Date DateBuy;
-    private BigDecimal Sell;
-    private Date DateSell;
     private BigDecimal Current;
     private BigDecimal Profit;
     private BigDecimal Free;
     private BigDecimal InOrder;
     private BigDecimal TotalBalance;
 
-    public Portifolio(ImageIcon Icon, String Asset, BigDecimal Buy, Date DateBuy, BigDecimal Sell, Date DateSell, BigDecimal Current, BigDecimal Profit, BigDecimal Free, BigDecimal InOrder, BigDecimal TotalBalance) {
+    public Portifolio(ImageIcon Icon, String Asset, BigDecimal Buy, Date DateBuy, BigDecimal Current, BigDecimal Profit, BigDecimal Free, BigDecimal InOrder, BigDecimal TotalBalance) {
         this.Icon = Icon;
         this.Asset = Asset;
         this.Buy = Buy;
         this.DateBuy = DateBuy;
-        this.Sell = Sell;
-        this.DateSell = DateSell;
         this.Current = Current;
         this.Profit = Profit;
         this.Free = Free;
@@ -72,22 +66,6 @@ public class Portifolio {
 
     public void setDateBuy(Date DateBuy) {
         this.DateBuy = DateBuy;
-    }
-
-    public BigDecimal getSell() {
-        return Sell;
-    }
-
-    public void setSell(BigDecimal Sell) {
-        this.Sell = Sell;
-    }
-
-    public Date getDateSell() {
-        return DateSell;
-    }
-
-    public void setDateSell(Date DateSell) {
-        this.DateSell = DateSell;
     }
 
     public BigDecimal getCurrent() {

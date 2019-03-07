@@ -5,11 +5,14 @@
  */
 package io.ikatoo.cryptoassets.interfaces;
 
+import io.ikatoo.cryptoassets.config.Parameters;
 import io.ikatoo.cryptoassets.interfaces.renderers.Renderers;
 import io.ikatoo.cryptoassets.models.Portifolio;
 import io.ikatoo.cryptoassets.models.abstracts.PortifolioATM;
-import io.ikatoo.cryptoassets.services.AccountService;
-import io.ikatoo.cryptoassets.services.OrdersService;
+import io.ikatoo.cryptoassets.services.binance.AccountService;
+import io.ikatoo.cryptoassets.services.binance.MarketDataService;
+import io.ikatoo.cryptoassets.services.binance.OrdersService;
+import io.ikatoo.cryptoassets.services.calculations.Price;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,14 +21,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -35,7 +36,6 @@ import org.json.JSONObject;
 public class FrmPortifolio extends javax.swing.JInternalFrame {
 
     private final ExecutorService _executorService;
-//    private PortifolioATM _model = new PortifolioATM();
 
     /**
      * Creates new form frmPortifolio
@@ -98,6 +98,14 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
             }
         });
 
+        tbAssets.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         tbAssets.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbAssets.getTableHeader().setReorderingAllowed(false);
         tbAssets.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -136,77 +144,86 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
             @Override
             public Void call() throws Exception {
 
-                while (true) {
-                    TimeUnit.SECONDS.sleep(3);
-                    AccountService accountService = new AccountService();
-                    OrdersService orderService = new OrdersService();
+//                while (true) {
+//                    TimeUnit.SECONDS.sleep(30);
+                AccountService accountService = new AccountService();
+                OrdersService orderService = new OrdersService();
 
-                    try {
-                        JSONArray balance = accountService.getBalances();
+                try {
+                    JSONArray balance = accountService.getBalances(100000);
 
-                        PortifolioATM model = new PortifolioATM();
+                    PortifolioATM model = new PortifolioATM();
 
-                        for (int i = 0; i < balance.length(); i++) {
-                            JSONObject jsonBalance = (JSONObject) balance.get(i);
+                    for (int i = 0; i < balance.length(); i++) {
+                        JSONObject jsonBalance = (JSONObject) balance.get(i);
 
-                            BigDecimal free = new BigDecimal(jsonBalance.get("free").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
-                            BigDecimal locked = new BigDecimal(jsonBalance.get("locked").toString()).setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
-                            BigDecimal zero = new BigDecimal("0.00000000").setScale(8, RoundingMode.HALF_EVEN).stripTrailingZeros();
+                        BigDecimal free = jsonBalance.getBigDecimal("free").setScale(8, RoundingMode.HALF_EVEN);
+                        BigDecimal locked = jsonBalance.getBigDecimal("locked").setScale(8, RoundingMode.HALF_EVEN);
+                        BigDecimal zero = BigDecimal.ZERO.setScale(8, RoundingMode.HALF_EVEN);
+                        BigDecimal total = locked.add(free);
 
-//                            JSONArray jsonAllOrders;
-//                            BigDecimal averageValueLastOrders = zero;
-//                            
-//                            if (jsonBalance.get("asset").toString().equalsIgnoreCase("btc")) {
-//                                jsonAllOrders = orderService.getAllOrders(jsonBalance.get("asset").toString().toUpperCase() + "USDT");
-//                            } else {
-//                                jsonAllOrders = orderService.getAllOrders(
-//                                        jsonBalance.get("asset").toString().toUpperCase() + "BTC"
-//                                );
-//                            }
-                            
-                            if ((free.compareTo(zero) == 1) || (locked.compareTo(zero) == 1)) {
-                                JLabel labelImage = new JLabel();
-                                String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + jsonBalance.get("asset").toString().toLowerCase() + ".png";
-                                labelImage.setIcon(new ImageIcon(pathImage));
+                        String asset = jsonBalance.get("asset").toString();
 
-                                Portifolio portifolio = new Portifolio(
-                                        new ImageIcon(pathImage),
-                                        jsonBalance.get("asset").toString(), //ASSET EX. BTC
-                                        zero, //BUY VALUE
-                                        new Date(), //DATE BUY
-                                        zero, //SELL VALUE
-                                        new Date(), //DATE SELL
-                                        zero, //CURRENT
-                                        new BigDecimal("100.00"), //PROFIT 
-                                        free, //FREE
-                                        locked, //IN ORDER
-                                        locked.add(free) //TOTAL BALANCE
-                                );
+                        if (!total.equals(zero)) {
 
-                                model.add(portifolio);
-                                tbAssets.setModel(model);
-                                tbAssets.setRowHeight(40);
-                                tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
+                            orderService.setRecvWindow(Parameters.getRecvWindow());
+                            orderService.setLimit(500);
 
-                                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                            JSONArray allOrders = orderService.getAllOrders(asset);
+                            BigDecimal _price = zero.setScale(8, RoundingMode.HALF_EVEN);
+                            long dateBuy = 0;
 
-                                for (int j = 1; j < 11; j++) {
-                                    tbAssets.getColumnModel().getColumn(j).setCellRenderer(centralizado);
-                                }
-
-                                tbAssets.getColumnModel().getColumn(0).setMaxWidth(40);
-                                tbAssets.getColumnModel().getColumn(1).setMaxWidth(50);
-                                tbAssets.getColumnModel().getColumn(7).setMaxWidth(70);
+                            if (!(asset.equals("BTC")) && (allOrders.length() != 0)) {
+                                JSONObject averagePrice = Price.averagePrice(allOrders, total);
+                                _price = averagePrice.getBigDecimal("price");
+                                dateBuy = averagePrice.getLong("dateBuy");
                             }
-                        }
+                            JLabel labelImage = new JLabel();
+                            String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + jsonBalance.get("asset").toString().toLowerCase() + ".png";
+                            labelImage.setIcon(new ImageIcon(pathImage));
+                            BigDecimal current = new BigDecimal(new MarketDataService().getOrderBook(asset).get("price").toString());
+                            BigDecimal profitMoney = total.multiply(current).subtract(total.multiply(_price));
+                            BigDecimal profitPercent = (profitMoney.subtract(total.multiply(current))).multiply(new BigDecimal(100));
+                            
+                            Portifolio portifolio = new Portifolio(
+                                    new ImageIcon(pathImage),
+                                    asset, //ASSET EX. BTC
+                                    _price, //BUY VALUE
+                                    new Date(dateBuy), //DATE BUY
+                                    current, //CURRENT
+                                    profitPercent, //PROFIT 
+                                    free, //FREE
+                                    locked, //IN ORDER
+                                    total.setScale(8, RoundingMode.HALF_EVEN) //TOTAL BALANCE
+                            );
 
-                    } catch (Exception ex) {
-                        Logger.getLogger(FrmPortifolio.class.getName()).log(Level.SEVERE, null, ex);
+                            model.add(portifolio);
+                            tbAssets.setModel(model);
+                            tbAssets.setRowHeight(40);
+                            tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
+
+                            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+                            for (int j = 1; j < 9; j++) {
+                                tbAssets.getColumnModel().getColumn(j).setCellRenderer(centralizado);
+                            }
+
+                            tbAssets.getColumnModel().getColumn(0).setMaxWidth(40);
+                            tbAssets.getColumnModel().getColumn(1).setMaxWidth(50);
+                            tbAssets.getColumnModel().getColumn(5).setMaxWidth(90);
+                            tbAssets.getColumnModel().getColumn(0).setMinWidth(40);
+                            tbAssets.getColumnModel().getColumn(1).setMinWidth(50);
+                            tbAssets.getColumnModel().getColumn(5).setMinWidth(90);
+                        }
                     }
 
+                } catch (Exception ex) {
+                    System.out.println(ex);
                 }
-//                return null;
+
+//                }
+                return null;
             }
         });
 

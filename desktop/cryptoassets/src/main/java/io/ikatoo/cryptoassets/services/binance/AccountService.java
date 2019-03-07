@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.ikatoo.cryptoassets.services;
+package io.ikatoo.cryptoassets.services.binance;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,17 +37,8 @@ public class AccountService extends ConsumeAPI {
         return json;
     }
 
-    public JSONObject getAccount() throws Exception {
-        long recvWindow = 5000;
-        return getAccount(recvWindow);
-    }
-
     public JSONArray getBalances(long recvWindow) throws Exception {
         return (JSONArray) getAccount(recvWindow).get("balances");
     }
 
-    public JSONArray getBalances() throws Exception {
-        long recvWindow = 5000;
-        return getBalances(recvWindow);
-    }
 }

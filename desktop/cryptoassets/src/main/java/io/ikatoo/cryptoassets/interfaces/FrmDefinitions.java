@@ -5,7 +5,8 @@
  */
 package io.ikatoo.cryptoassets.interfaces;
 
-import io.ikatoo.cryptoassets.db.Local;
+import io.ikatoo.cryptoassets.config.Parameters;
+import io.ikatoo.cryptoassets.config.UserDataAPI;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,7 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbExchanges = new javax.swing.JComboBox<>();
@@ -48,6 +50,13 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtApiKey = new javax.swing.JTextField();
         txtSecretKey = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtLimit = new javax.swing.JTextField();
+        txtSecretKey1 = new javax.swing.JTextField();
+        txtRecvWindow = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
 
@@ -83,8 +92,8 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbExchanges, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtApiKey, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                    .addComponent(cbExchanges, 0, 414, Short.MAX_VALUE)
+                    .addComponent(txtApiKey)
                     .addComponent(txtSecretKey))
                 .addContainerGap())
         );
@@ -106,12 +115,65 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel4.add(jPanel1);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Exchange"));
+
+        jLabel4.setText("Recovery Window (ms)");
+
+        jLabel5.setText("Limit of records per request");
+
+        jLabel6.setText("Secret Key");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtLimit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(txtRecvWindow, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSecretKey1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtRecvWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtSecretKey1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jLabel4.getAccessibleContext().setAccessibleName("Recovery Window (ms)");
+
+        jPanel4.add(jPanel3);
+        jPanel3.getAccessibleContext().setAccessibleName("Traffic Parameters");
+
+        getContentPane().add(jPanel4, java.awt.BorderLayout.LINE_END);
+
         jButton2.setBackground(new java.awt.Color(0, 51, 153));
         jButton2.setFont(jButton2.getFont());
         jButton2.setForeground(new java.awt.Color(254, 254, 254));
         jButton2.setIcon(new javax.swing.ImageIcon("/home/mckatoo/projetos/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-save-white-18/1x/sharp_save_white_18dp.png")); // NOI18N
         jButton2.setText("SAVE");
         jButton2.setBorderPainted(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusPainted(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +186,7 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(815, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -136,32 +198,17 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         try {
-            txtApiKey.setText(Local.getApiKey());
-            txtSecretKey.setText(Local.getSecretKey());
+            txtApiKey.setText(UserDataAPI.getApiKey());
+            txtSecretKey.setText(UserDataAPI.getSecretKey());
+            txtRecvWindow.setText(String.valueOf(Parameters.getRecvWindow()));
+            txtLimit.setText(String.valueOf(Parameters.getLimit()));
         } catch (IOException ex) {
             Logger.getLogger(FrmDefinitions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -169,7 +216,8 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            Local.putApiSecretKey(txtApiKey.getText(), txtSecretKey.getText());
+            UserDataAPI.putFile(txtApiKey.getText(), txtSecretKey.getText());
+            Parameters.putFile(txtRecvWindow.getText(), txtLimit.getText());
         } catch (IOException ex) {
             Logger.getLogger(FrmDefinitions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -182,9 +230,17 @@ public class FrmDefinitions extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtApiKey;
+    private javax.swing.JTextField txtLimit;
+    private javax.swing.JTextField txtRecvWindow;
     private javax.swing.JTextField txtSecretKey;
+    private javax.swing.JTextField txtSecretKey1;
     // End of variables declaration//GEN-END:variables
 }

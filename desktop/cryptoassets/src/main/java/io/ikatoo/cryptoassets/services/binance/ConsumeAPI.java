@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.ikatoo.cryptoassets.services;
+package io.ikatoo.cryptoassets.services.binance;
 
-import io.ikatoo.cryptoassets.db.Local;
+import io.ikatoo.cryptoassets.config.UserDataAPI;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,7 +42,7 @@ public class ConsumeAPI {
         HttpResponse response = null;
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             HttpGet getRequest = new HttpGet(url);
-            getRequest.addHeader("X-MBX-APIKEY", Local.getApiKey());
+            getRequest.addHeader("X-MBX-APIKEY", UserDataAPI.getApiKey());
 
             response = httpClient.execute(getRequest);
 
@@ -63,13 +63,13 @@ public class ConsumeAPI {
         
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             HttpGet getRequest = new HttpGet(url);
-            getRequest.addHeader("X-MBX-APIKEY", Local.getApiKey());
+            getRequest.addHeader("X-MBX-APIKEY", UserDataAPI.getApiKey());
 
             HttpResponse response = httpClient.execute(getRequest);
 
             if (response.getStatusLine().getStatusCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatusLine().getStatusCode());
+                throw new RuntimeException(url + " ===== " + new BufferedReader(
+                    new InputStreamReader((response.getEntity().getContent()))).readLine());
             }
 
             BufferedReader br = new BufferedReader(

@@ -5,7 +5,7 @@
  */
 package io.ikatoo.cryptoassets.interfaces;
 
-import io.ikatoo.cryptoassets.services.GeneralService;
+import io.ikatoo.cryptoassets.services.binance.GeneralService;
 import io.ikatoo.cryptoassets.uteis.FormManager;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
@@ -67,10 +67,11 @@ public class FrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         pnStatus = new javax.swing.JPanel();
         lbStatus = new javax.swing.JLabel();
@@ -92,53 +93,71 @@ public class FrmMain extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(26, 82, 134));
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 153));
-        jButton3.setFont(jButton3.getFont());
-        jButton3.setForeground(new java.awt.Color(254, 254, 254));
-        jButton3.setIcon(new javax.swing.ImageIcon("/home/mckatoo/projetos/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-attach_money-white-18/1x/sharp_attach_money_white_18dp.png")); // NOI18N
-        jButton3.setText("PORTFOLIO");
-        jButton3.setBorderPainted(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.setFocusPainted(false);
-        jButton3.setMargin(new java.awt.Insets(4, 8, 4, 8));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        jToggleButton1.setBackground(new java.awt.Color(0, 51, 153));
+        buttonGroup1.add(jToggleButton1);
+        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jToggleButton1.setIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-attach_money-white-18/1x/sharp_attach_money_white_18dp.png")); // NOI18N
+        jToggleButton1.setText("PORTIFOLIO");
+        jToggleButton1.setToolTipText("");
+        jToggleButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToggleButton1.setFocusPainted(false);
+        jToggleButton1.setSelectedIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-attach_money-black-18/1x/sharp_attach_money_black_18dp.png")); // NOI18N
+        jToggleButton1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jToggleButton1StateChanged(evt);
             }
         });
-        jPanel1.add(jButton3);
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButton1);
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 153));
-        jButton1.setFont(jButton1.getFont());
-        jButton1.setForeground(new java.awt.Color(254, 254, 254));
-        jButton1.setIcon(new javax.swing.ImageIcon("/home/mckatoo/projetos/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-trending_up-white-18/1x/sharp_trending_up_white_18dp.png")); // NOI18N
-        jButton1.setText("GRAPHICS");
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.setMargin(new java.awt.Insets(4, 8, 4, 8));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jToggleButton2.setBackground(new java.awt.Color(0, 51, 153));
+        buttonGroup1.add(jToggleButton2);
+        jToggleButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jToggleButton2.setIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-trending_up-white-18/1x/sharp_trending_up_white_18dp.png")); // NOI18N
+        jToggleButton2.setText("GRAPHICS");
+        jToggleButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToggleButton2.setFocusPainted(false);
+        jToggleButton2.setSelectedIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-trending_up-black-18/1x/sharp_trending_up_black_18dp.png")); // NOI18N
+        jToggleButton2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jToggleButton2StateChanged(evt);
             }
         });
-        jPanel1.add(jButton1);
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jToggleButton2);
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 153));
-        jButton2.setFont(jButton2.getFont());
-        jButton2.setForeground(new java.awt.Color(254, 254, 254));
-        jButton2.setIcon(new javax.swing.ImageIcon("/home/mckatoo/projetos/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-settings-white-18/1x/sharp_settings_white_18dp.png")); // NOI18N
-        jButton2.setText("DEFINITIONS");
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setFocusPainted(false);
-        jButton2.setMargin(new java.awt.Insets(4, 8, 4, 8));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jToggleButton3.setBackground(new java.awt.Color(0, 51, 153));
+        buttonGroup1.add(jToggleButton3);
+        jToggleButton3.setForeground(new java.awt.Color(254, 254, 254));
+        jToggleButton3.setIcon(new javax.swing.ImageIcon("/home/mckatoo/projetos/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-settings-white-18/1x/sharp_settings_white_18dp.png")); // NOI18N
+        jToggleButton3.setText("DEFINITIONS");
+        jToggleButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToggleButton3.setFocusPainted(false);
+        jToggleButton3.setSelectedIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-settings-black-18/1x/sharp_settings_black_18dp.png")); // NOI18N
+        jToggleButton3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jToggleButton3StateChanged(evt);
             }
         });
-        jPanel1.add(jButton2);
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
+        jToggleButton3.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jToggleButton3PropertyChange(evt);
+            }
+        });
+        jPanel1.add(jToggleButton3);
 
         jPanel3.setBackground(new java.awt.Color(26, 82, 134));
 
@@ -186,7 +205,7 @@ public class FrmMain extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 375, Short.MAX_VALUE)
+            .addGap(0, 379, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
@@ -228,24 +247,18 @@ public class FrmMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         Future<Void> future = executorService.submit(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                FrmDefinitions definitions = new FrmDefinitions();
-                try {
-                    FormManager.openInternalForm(definitions, jDesktopPane1);
-                } catch (PropertyVetoException ex) {
-                    Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                verificaConexao();
                 return null;
             }
         });
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_formWindowOpened
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         Future<Void> future = executorService.submit(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
@@ -258,10 +271,9 @@ public class FrmMain extends javax.swing.JFrame {
                 return null;
             }
         });
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         Future<Void> future = executorService.submit(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
@@ -274,19 +286,49 @@ public class FrmMain extends javax.swing.JFrame {
                 return null;
             }
         });
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         Future<Void> future = executorService.submit(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                verificaConexao();
+                FrmDefinitions definitions = new FrmDefinitions();
+                try {
+                    FormManager.openInternalForm(definitions, jDesktopPane1);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 return null;
             }
         });
-    }//GEN-LAST:event_formWindowOpened
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void jToggleButton3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jToggleButton3PropertyChange
+    }//GEN-LAST:event_jToggleButton3PropertyChange
+
+    private void jToggleButton3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton3StateChanged
+        if (jToggleButton3.isSelected()) {
+            jToggleButton3.setForeground(Color.black);
+        } else {
+            jToggleButton3.setForeground(Color.white);
+        }
+    }//GEN-LAST:event_jToggleButton3StateChanged
+
+    private void jToggleButton2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton2StateChanged
+        if (jToggleButton2.isSelected()) {
+            jToggleButton2.setForeground(Color.black);
+        } else {
+            jToggleButton2.setForeground(Color.white);
+        }
+    }//GEN-LAST:event_jToggleButton2StateChanged
+
+    private void jToggleButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton1StateChanged
+        if (jToggleButton1.isSelected()) {
+            jToggleButton1.setForeground(Color.black);
+        } else {
+            jToggleButton1.setForeground(Color.white);
+        }
+    }//GEN-LAST:event_jToggleButton1StateChanged
 
     /**
      * @param args the command line arguments
@@ -326,14 +368,15 @@ public class FrmMain extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    javax.swing.JButton jButton1;
-    javax.swing.JButton jButton2;
-    javax.swing.JButton jButton3;
+    javax.swing.ButtonGroup buttonGroup1;
     javax.swing.JDesktopPane jDesktopPane1;
     javax.swing.JPanel jPanel1;
     javax.swing.JPanel jPanel2;
     javax.swing.JPanel jPanel3;
     javax.swing.JPanel jPanel4;
+    javax.swing.JToggleButton jToggleButton1;
+    javax.swing.JToggleButton jToggleButton2;
+    javax.swing.JToggleButton jToggleButton3;
     javax.swing.JLabel lbStatus;
     javax.swing.JPanel pnStatus;
     // End of variables declaration//GEN-END:variables
