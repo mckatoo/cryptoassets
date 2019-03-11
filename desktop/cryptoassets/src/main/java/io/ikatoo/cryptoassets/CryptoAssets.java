@@ -5,12 +5,8 @@
  */
 package io.ikatoo.cryptoassets;
 
-import io.ikatoo.cryptoassets.config.UserDataAPI;
-import io.ikatoo.cryptoassets.interfaces.FrmMain;
-import io.ikatoo.cryptoassets.services.binance.ConsumeAPI;
+import io.ikatoo.cryptoassets.interfaces.FrmSplashScreen;
 import io.ikatoo.cryptoassets.services.binance.MarketDataService;
-import io.ikatoo.cryptoassets.uteis.FormManager;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 
 /**
@@ -28,14 +24,35 @@ public class CryptoAssets {
         return instance;
     }
     
-    public static void main(String[] args) throws PropertyVetoException, IOException {
-        FrmMain frmmain = new FrmMain();
-        FormManager.openForm(frmmain);
-        ConsumeAPI._secret = UserDataAPI.getSecretKey();
+    public static void main(String[] args) throws IOException, Exception {
+        FrmSplashScreen splash = new FrmSplashScreen();
+        splash.setVisible(true);
+//        FrmMain frmmain = new FrmMain();
+//        FormManager.openForm(frmmain);
+//        ConsumeAPI._secret = UserDataAPI.getSecretKey();
         
-        ////// TESTAR REQUISIÇÕES DE SERVIÇOS ENTRE ESTE TRECHO
-//        MarketDataService mk = new MarketDataService();
-//        System.out.println(mk.getOrderBook("BTC", 5));
-        ////// TESTAR REQUISIÇÕES DE SERVIÇOS ENTRE ESTE TRECHO
+//        ESPAÇO RESERVADO PARA TESTAR SERVICES
+//        System.out.println(new GeneralService().getExchangeInfo());
+//        System.out.println(new MarketDataService().getOrderBook("BTC",100));
+//        System.out.println(new MarketDataService().getOrderBook("BTC"));
+//        System.out.println(new MarketDataService().getRecentTradesList("BTC",100));
+//        System.out.println(new MarketDataService().getRecentTradesList("BTC"));
+//        System.out.println(new MarketDataService().getOldTradeLookup("BTC",100));
+//        System.out.println(new MarketDataService().getOldTradeLookup("BTC"));
+//        System.out.println(new MarketDataService().getCompressedAggregateTradesList("BTC",0,0,0,0));
+//        System.out.println(new MarketDataService().getCompressedAggregateTradesList("BTC"));
+//        System.out.println(new OrdersService().getAllOrders("BNB", 0, 0, 0, 0, 0));
+//        System.out.println(new OrdersService().getAllOrders("BNB"));
+//        System.out.println(new MarketDataService().getKlineCandlestickData("BNB", "1w", 0, 0, 0));
+//        System.out.println(new MarketDataService().getKlineCandlestickData("ETH", "1h"));
+//        System.out.println(new MarketDataService().getCurrentAveragePrice("AION"));
+//        System.out.println(new MarketDataService().get24hrTickerPriceChangeStatistics("AION"));
+//        System.out.println(new MarketDataService().get24hrTickerPriceChangeStatistics());
+        System.out.println(new MarketDataService().getSymbolPriceTicker("AION").get("price"));
+//        System.out.println(new MarketDataService().getSymbolPriceTicker());
+//        System.out.println(new MarketDataService().getSymbolOrderBookTicker("AION"));
+//        System.out.println(new MarketDataService().getSymbolOrderBookTicker());
+
+//        ESPAÇO RESERVADO PARA TESTAR SERVICES
     }
 }

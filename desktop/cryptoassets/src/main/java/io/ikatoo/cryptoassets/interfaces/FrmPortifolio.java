@@ -108,6 +108,11 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
         ));
         tbAssets.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbAssets.getTableHeader().setReorderingAllowed(false);
+        tbAssets.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                tbAssetsMouseMoved(evt);
+            }
+        });
         tbAssets.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbAssetsMouseClicked(evt);
@@ -148,6 +153,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
 //                    TimeUnit.SECONDS.sleep(30);
                 AccountService accountService = new AccountService();
                 OrdersService orderService = new OrdersService();
+                MarketDataService marketDataService = new MarketDataService();
 
                 try {
                     JSONArray balance = accountService.getBalances(100000);
@@ -165,15 +171,12 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                         String asset = jsonBalance.get("asset").toString();
 
                         if (!total.equals(zero)) {
-
-                            orderService.setRecvWindow(Parameters.getRecvWindow());
-                            orderService.setLimit(500);
-
-                            JSONArray allOrders = orderService.getAllOrders(asset);
+                            JSONArray allOrders = orderService.getAllOrders(asset, 0, 0, 0, Parameters.getLimit(), Parameters.getRecvWindow());
                             BigDecimal _price = zero.setScale(8, RoundingMode.HALF_EVEN);
                             long dateBuy = 0;
 
-                            if (!(asset.equals("BTC")) && (allOrders.length() != 0)) {
+                            if (!(asset.equals("BTC")) && (allOrders.length() > 0)) {
+//                                JSONObject jsonAllOrders = allOrders.getJSONObject(0);
                                 JSONObject averagePrice = Price.averagePrice(allOrders, total);
                                 _price = averagePrice.getBigDecimal("price");
                                 dateBuy = averagePrice.getLong("dateBuy");
@@ -181,20 +184,23 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                             JLabel labelImage = new JLabel();
                             String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + jsonBalance.get("asset").toString().toLowerCase() + ".png";
                             labelImage.setIcon(new ImageIcon(pathImage));
-                            BigDecimal current = new BigDecimal(new MarketDataService().getOrderBook(asset).get("price").toString());
+//                            JSONArray marketDataArray = new MarketDataService().getRecentTradesList(asset);
+//                            JSONObject jsonCurrent = marketDataArray.getJSONObject(0);
+//                            BigDecimal current = jsonCurrent.isEmpty() ? zero : jsonCurrent.getBigDecimal("price");
+                            BigDecimal current = marketDataService.getSymbolPriceTicker(asset).getBigDecimal("price");
                             BigDecimal profitMoney = total.multiply(current).subtract(total.multiply(_price));
                             BigDecimal profitPercent = (profitMoney.subtract(total.multiply(current))).multiply(new BigDecimal(100));
-                            
+
                             Portifolio portifolio = new Portifolio(
                                     new ImageIcon(pathImage),
-                                    asset, //ASSET EX. BTC
-                                    _price, //BUY VALUE
-                                    new Date(dateBuy), //DATE BUY
-                                    current, //CURRENT
-                                    profitPercent, //PROFIT 
-                                    free, //FREE
-                                    locked, //IN ORDER
-                                    total.setScale(8, RoundingMode.HALF_EVEN) //TOTAL BALANCE
+                                    asset,
+                                    _price,
+                                    new Date(dateBuy),
+                                    current,
+                                    profitPercent,
+                                    free,
+                                    locked,
+                                    total.setScale(8, RoundingMode.HALF_EVEN)
                             );
 
                             model.add(portifolio);
@@ -202,11 +208,12 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                             tbAssets.setRowHeight(40);
                             tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
 
-                            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                            DefaultTableCellRenderer cell = new DefaultTableCellRenderer();
+                            cell.setHorizontalAlignment(SwingConstants.CENTER);
+                            cell.setToolTipText("Profit = " + profitMoney.setScale(8, RoundingMode.HALF_EVEN) + "BTC");
 
                             for (int j = 1; j < 9; j++) {
-                                tbAssets.getColumnModel().getColumn(j).setCellRenderer(centralizado);
+                                tbAssets.getColumnModel().getColumn(j).setCellRenderer(cell);
                             }
 
                             tbAssets.getColumnModel().getColumn(0).setMaxWidth(40);
@@ -215,11 +222,11 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                             tbAssets.getColumnModel().getColumn(0).setMinWidth(40);
                             tbAssets.getColumnModel().getColumn(1).setMinWidth(50);
                             tbAssets.getColumnModel().getColumn(5).setMinWidth(90);
+
                         }
                     }
 
                 } catch (Exception ex) {
-                    System.out.println(ex);
                 }
 
 //                }
@@ -230,12 +237,14 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void tbAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseClicked
-        System.out.println(tbAssets.getValueAt(tbAssets.getSelectedRow(), 10));
+        System.out.println(tbAssets.getValueAt(tbAssets.getSelectedRow(), 8));
     }//GEN-LAST:event_tbAssetsMouseClicked
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-
     }//GEN-LAST:event_formInternalFrameActivated
+
+    private void tbAssetsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseMoved
+    }//GEN-LAST:event_tbAssetsMouseMoved
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,6 +5,7 @@
  */
 package io.ikatoo.cryptoassets.services.binance;
 
+import io.ikatoo.cryptoassets.config.Parameters;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,46 +24,20 @@ public class OrdersService extends ConsumeAPI {
         return instance;
     }
 
-    public long orderId;
-    public long startTime;
-    public long endTime;
-    public int limit;
-    public long recvWindow;
-
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(long endTime) {
-        this.endTime = endTime;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
-    public void setRecvWindow(long recvWindow) {
-        this.recvWindow = recvWindow;
-    }
-
-    public JSONArray getAllOrders(String symbol) throws Exception {
+    public JSONArray getAllOrders(String symbol,long orderId, long startTime, long endTime, int limit, long recvWindow) throws Exception {
 
         JSONArray json = null;
         
-        symbol = symbol.equals("BTC") || symbol.equals("USDT") ? "BTCUSDT" : symbol + "BTC";
+        symbol = symbol.equals("BTC") || symbol.equals("USDT") ? "symbol=BTCUSDT" : "symbol=" + symbol + "BTC";
+        String stringOrderId = orderId == 0 ? "" : "&orderId=" + orderId;
+        String stringStartTime = startTime == 0 ? "" : "&startTime=" + startTime;
+        String stringEndTime = endTime == 0 ? "" : "&endTime=" + endTime;
+        String stringLimit = limit == 0 || limit > 1000 ? "" : "&limit=" + limit;
+        String stringRecvWindow = recvWindow == 0 || recvWindow < 10000 ? "" : "&recvWindow=" + recvWindow;
+        String query = symbol + stringOrderId + stringStartTime + stringEndTime + stringLimit + stringRecvWindow + "&timestamp=" + now;
 
+        recvWindow = recvWindow == 0 ? Parameters.getRecvWindow() : recvWindow;
         if (new RequestValidate().Validate(now, recvWindow)) {
-            String query = "symbol=" + symbol + 
-                    "&orderId=" + orderId + 
-                    "&startTime=" + startTime + 
-                    "&endTime=" + endTime + 
-                    "&limit=" + limit + 
-                    "&recvWindow=" + recvWindow + 
-                    "&timestamp=" + now;
             String signature = "signature=" + ApiSecurity.encode(_secret, query);
             String url = "https://api.binance.com/api/v3/allOrders?" + query + "&" + signature;
 
@@ -70,6 +45,10 @@ public class OrdersService extends ConsumeAPI {
         }
 
         return json;
+    }
+    
+    public JSONArray getAllOrders(String symbol) throws Exception{
+        return getAllOrders(symbol, 0, 0, 0, 0, 0);
     }
 
     public JSONObject getOpenOrders(String symbol, long recvWindow) throws Exception {

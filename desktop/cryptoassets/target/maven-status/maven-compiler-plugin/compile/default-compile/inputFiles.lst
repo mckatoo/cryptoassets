@@ -2,6 +2,7 @@
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/services/binance/RequestValidate.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/services/binance/ConsumeAPI.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/models/Portifolio.java
+/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmSplashScreen.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/CryptoAssets.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmGraphics.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/services/calculations/Price.java
@@ -9,6 +10,7 @@
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/models/abstracts/PortifolioATM.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/config/Parameters.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/config/UserDataAPI.java
+/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/graphicsDataSet/Candlestick.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/config/GetterSetterFile.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/renderers/Renderers.java
 /media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmMain.java

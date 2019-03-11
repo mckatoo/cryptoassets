@@ -95,11 +95,12 @@ public class FrmMain extends javax.swing.JFrame {
 
         jToggleButton1.setBackground(new java.awt.Color(0, 51, 153));
         buttonGroup1.add(jToggleButton1);
+        jToggleButton1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-attach_money-white-18/1x/sharp_attach_money_white_18dp.png")); // NOI18N
         jToggleButton1.setText("PORTIFOLIO");
         jToggleButton1.setToolTipText("");
-        jToggleButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToggleButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToggleButton1.setFocusPainted(false);
         jToggleButton1.setSelectedIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-attach_money-black-18/1x/sharp_attach_money_black_18dp.png")); // NOI18N
         jToggleButton1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -116,10 +117,11 @@ public class FrmMain extends javax.swing.JFrame {
 
         jToggleButton2.setBackground(new java.awt.Color(0, 51, 153));
         buttonGroup1.add(jToggleButton2);
+        jToggleButton2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jToggleButton2.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton2.setIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-trending_up-white-18/1x/sharp_trending_up_white_18dp.png")); // NOI18N
         jToggleButton2.setText("GRAPHICS");
-        jToggleButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToggleButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToggleButton2.setFocusPainted(false);
         jToggleButton2.setSelectedIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-trending_up-black-18/1x/sharp_trending_up_black_18dp.png")); // NOI18N
         jToggleButton2.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -136,10 +138,11 @@ public class FrmMain extends javax.swing.JFrame {
 
         jToggleButton3.setBackground(new java.awt.Color(0, 51, 153));
         buttonGroup1.add(jToggleButton3);
+        jToggleButton3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jToggleButton3.setForeground(new java.awt.Color(254, 254, 254));
         jToggleButton3.setIcon(new javax.swing.ImageIcon("/home/mckatoo/projetos/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-settings-white-18/1x/sharp_settings_white_18dp.png")); // NOI18N
         jToggleButton3.setText("DEFINITIONS");
-        jToggleButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jToggleButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToggleButton3.setFocusPainted(false);
         jToggleButton3.setSelectedIcon(new javax.swing.ImageIcon("/media/ARQUIVOS/COMMON/PROJETOS/cryptoassets/desktop/cryptoassets/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/sharp-settings-black-18/1x/sharp_settings_black_18dp.png")); // NOI18N
         jToggleButton3.addChangeListener(new javax.swing.event.ChangeListener() {

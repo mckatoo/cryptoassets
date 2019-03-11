@@ -2,6 +2,7 @@ io/ikatoo/cryptoassets/services/binance/OrdersService.class
 io/ikatoo/cryptoassets/services/binance/GeneralService.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$10.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$12.class
+io/ikatoo/cryptoassets/interfaces/FrmSplashScreen$1.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$8.class
 io/ikatoo/cryptoassets/config/Parameters.class
 io/ikatoo/cryptoassets/CryptoAssets.class
@@ -18,6 +19,7 @@ io/ikatoo/cryptoassets/interfaces/FrmMain$1.class
 io/ikatoo/cryptoassets/interfaces/FrmPortifolio$1.class
 io/ikatoo/cryptoassets/models/Portifolio.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$9.class
+io/ikatoo/cryptoassets/interfaces/FrmPortifolio$6.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$4.class
 io/ikatoo/cryptoassets/config/GetterSetterFile.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$2.class
@@ -25,11 +27,13 @@ io/ikatoo/cryptoassets/services/binance/AccountService.class
 io/ikatoo/cryptoassets/interfaces/FrmGraphics.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$7.class
 io/ikatoo/cryptoassets/interfaces/FrmPortifolio$3.class
+io/ikatoo/cryptoassets/interfaces/graphicsDataSet/Candlestick.class
 io/ikatoo/cryptoassets/services/binance/ConsumeAPI.class
 io/ikatoo/cryptoassets/uteis/FormManager.class
 io/ikatoo/cryptoassets/config/UserDataAPI.class
 io/ikatoo/cryptoassets/services/binance/MarketDataService.class
 io/ikatoo/cryptoassets/interfaces/FrmPortifolio.class
+io/ikatoo/cryptoassets/interfaces/FrmSplashScreen.class
 io/ikatoo/cryptoassets/interfaces/FrmPortifolio$2.class
 io/ikatoo/cryptoassets/interfaces/FrmPortifolio$5.class
 io/ikatoo/cryptoassets/interfaces/FrmMain$5.class
