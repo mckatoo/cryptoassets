@@ -205,5 +205,6 @@ local.properties
 
 # End of https://www.gitignore.io/api/eclipse
 
-/desktop/cryptoassets/javaWin
-/desktop/cryptoassets/javaLinux
+#/desktop/cryptoassets/javaWin
+#/desktop/cryptoassets/javaLinux
+desktop/cryptoassets/target
