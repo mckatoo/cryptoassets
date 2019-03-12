@@ -13,6 +13,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.sql.Timestamp;
+import org.apache.catalina.util.URLEncoder;
+import org.json.JSONObject;
 
 /**
  *
@@ -48,11 +50,31 @@ public class ConsumeAPI {
         return response;
     }
 
-    public String httpClientResponse(String url) throws IOException, InterruptedException {
+    private HttpResponse<String> postResponse(String url, JSONObject json) throws IOException, InterruptedException {
 
-        HttpResponse<String> response = getResponse(url);
-        
-        return response.body();
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("X-MBX-APIKEY", UserDataAPI.getApiKey())
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> response
+                = client.send(request, BodyHandlers.ofString());
+
+        return response;
     }
 
+    public String httpClientResponse(String url) throws IOException, InterruptedException {
+        HttpResponse<String> response = getResponse(url);
+        return response.body();
+    }
+    
+    public String httpPostResponse(String url, JSONObject json) throws IOException, InterruptedException{
+        HttpResponse<String> response = postResponse(url, json);
+        return response.body();
+    }
+    
 }

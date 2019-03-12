@@ -40,8 +40,5 @@ public class AccountService extends ConsumeAPI {
     public JSONArray getBalances(long recvWindow) throws Exception {
         return (JSONArray) getAccount(recvWindow).get("balances");
     }
-    
-    
-    public JSONObject postNewOrder()
 
 }

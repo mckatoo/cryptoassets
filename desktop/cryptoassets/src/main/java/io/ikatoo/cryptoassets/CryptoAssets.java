@@ -5,9 +5,14 @@
  */
 package io.ikatoo.cryptoassets;
 
+import io.ikatoo.cryptoassets.config.UserDataAPI;
 import io.ikatoo.cryptoassets.interfaces.FrmSplashScreen;
+import io.ikatoo.cryptoassets.models.Order;
+import io.ikatoo.cryptoassets.services.binance.ConsumeAPI;
 import io.ikatoo.cryptoassets.services.binance.MarketDataService;
+import io.ikatoo.cryptoassets.services.binance.OrdersService;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  *
@@ -25,11 +30,11 @@ public class CryptoAssets {
     }
     
     public static void main(String[] args) throws IOException, Exception {
-        FrmSplashScreen splash = new FrmSplashScreen();
-        splash.setVisible(true);
+//        FrmSplashScreen splash = new FrmSplashScreen();
+//        splash.setVisible(true);
 //        FrmMain frmmain = new FrmMain();
 //        FormManager.openForm(frmmain);
-//        ConsumeAPI._secret = UserDataAPI.getSecretKey();
+        ConsumeAPI._secret = UserDataAPI.getSecretKey();
         
 //        ESPAÇO RESERVADO PARA TESTAR SERVICES
 //        System.out.println(new GeneralService().getExchangeInfo());
@@ -48,10 +53,11 @@ public class CryptoAssets {
 //        System.out.println(new MarketDataService().getCurrentAveragePrice("AION"));
 //        System.out.println(new MarketDataService().get24hrTickerPriceChangeStatistics("AION"));
 //        System.out.println(new MarketDataService().get24hrTickerPriceChangeStatistics());
-        System.out.println(new MarketDataService().getSymbolPriceTicker("AION").get("price"));
+//        System.out.println(new MarketDataService().getSymbolPriceTicker("AION").get("price"));
 //        System.out.println(new MarketDataService().getSymbolPriceTicker());
 //        System.out.println(new MarketDataService().getSymbolOrderBookTicker("AION"));
 //        System.out.println(new MarketDataService().getSymbolOrderBookTicker());
+        System.out.println(new OrdersService().postNewOrderLimit("ETH", "BUY", "GTC", new BigDecimal("0.030"), new BigDecimal("0.030"), 0));
 
 //        ESPAÇO RESERVADO PARA TESTAR SERVICES
     }
