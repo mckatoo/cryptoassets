@@ -48,19 +48,19 @@ public class Order {
         this.timestamp = new Timestamp(System.currentTimeMillis()).getTime();
     }
 
-    // STOP_LOSS & TAKE_PROFIT || LIMIT_MAKER
-    public Order(String Symbol, String Side, String Type, BigDecimal Quantity, BigDecimal PriceOrStopPrice, long recvWindow) {
-        this.Symbol = Symbol;
-        this.Side = Side;
-        this.Type = Type;
-        this.Quantity = Quantity;
-        if ((Type.equals("STOP_LOSS")) || (Type.equals("TAKE_PROFIT"))) {
-            this.Price = PriceOrStopPrice;
-        } else {
-            this.StopPrice = PriceOrStopPrice;
-        }
-        this.timestamp = new Timestamp(System.currentTimeMillis()).getTime();
-    }
+//    // STOP_LOSS & TAKE_PROFIT || LIMIT_MAKER
+//    public Order(String Symbol, String Side, String Type, BigDecimal Quantity, BigDecimal PriceOrStopPrice, long recvWindow) {
+//        this.Symbol = Symbol;
+//        this.Side = Side;
+//        this.Type = Type;
+//        this.Quantity = Quantity;
+//        if ((Type.equals("STOP_LOSS")) || (Type.equals("TAKE_PROFIT"))) {
+//            this.StopPrice = PriceOrStopPrice;
+//        } else {
+//            this.Price = PriceOrStopPrice;
+//        }
+//        this.timestamp = new Timestamp(System.currentTimeMillis()).getTime();
+//    }
 
     //STOP_LOSS_LIMIT & TAKE_PROFIT_LIMIT
     public Order(String Symbol, String Side, String Type, String TimeInForce, BigDecimal Quantity, BigDecimal Price, BigDecimal StopPrice, long recvWindow) {
