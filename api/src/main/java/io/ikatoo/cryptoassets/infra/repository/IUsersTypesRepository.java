@@ -12,11 +12,11 @@ import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import io.ikatoo.cryptoassets.core.entity.UsersType;
+import io.ikatoo.cryptoassets.core.entity.UsersTypes;
 
 /**
  * UsersRepository
  */
-public interface IUsersTypeRepository extends PagingAndSortingRepository<UsersType, Long> {
-    List<UsersType> findByTypeIgnoreCaseContaining(String type);
+public interface IUsersTypesRepository extends PagingAndSortingRepository<UsersTypes, Integer> {
+    List<UsersTypes> findByTypeIgnoreCaseContaining(String type);
 }

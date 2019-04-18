@@ -8,14 +8,20 @@
 
 package io.ikatoo.cryptoassets.core.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.ikatoo.cryptoassets.core.entity.base.BaseEntity;
@@ -26,40 +32,41 @@ import io.ikatoo.cryptoassets.core.entity.base.BaseEntity;
 
 @Entity
 public class Users extends BaseEntity {
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = -26963215018239031L;
+    @NotNull
     private String name;
     @Email
-    @NotEmpty
+    @NotNull
     @Column(unique = true)
     private String email;
+    @NotNull
     @Column(unique = true)
     private String username;
-    @NotEmpty
+    @NotNull
     @JsonIgnore
     private String password;
     private String rememberToken;
-    @ManyToOne
-    @JoinColumn(name = "usersTypeId")
+
+    @JsonBackReference
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_has_types", joinColumns = @JoinColumn(name = "users_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "users_types_id", nullable = false))
     @NotNull
-    private UsersType usersType;
+    private List<UsersTypes> types = new ArrayList<>();
+
+    public Users() {
+    }
+
+    public Users(String name, String email, String username, String password, String rememberToken) {
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.rememberToken = rememberToken;
+    }
 
     public String getName() {
         return this.name;
-    }
-
-    /**
-     * @return the usersType
-     */
-    public UsersType getUsersType() {
-        return usersType;
-    }
-
-    /**
-     * @param usersType the usersType to set
-     */
-    public void setUsersType(UsersType usersType) {
-        this.usersType = usersType;
     }
 
     public void setName(String name) {
@@ -96,6 +103,14 @@ public class Users extends BaseEntity {
 
     public void setRememberToken(String rememberToken) {
         this.rememberToken = rememberToken;
+    }
+
+    public List<UsersTypes> getTypes() {
+        return this.types;
+    }
+
+    public void setTypes(List<UsersTypes> types) {
+        this.types = types;
     }
 
 }

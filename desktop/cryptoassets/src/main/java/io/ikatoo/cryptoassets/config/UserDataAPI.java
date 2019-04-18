@@ -6,23 +6,6 @@ import org.json.JSONObject;
 
 public class UserDataAPI extends GetterSetterFile {
 
-//    private static String getPath() throws IOException {
-//        File _folder = new File(System.getProperty("user.home") + "/.cryptoassets/config");
-//        if (!_folder.exists()) {
-//            _folder.mkdirs();
-//            String api = JOptionPane.showInputDialog("Insira sua API KEY.");
-//            String secret = JOptionPane.showInputDialog("Insira sua SECRET KEY.");
-//            putApiSecretKey(api, secret);
-//        }
-//
-//        File _file = new File(_folder + "/db.json");
-//
-//        if (!_file.exists()) {
-//            _file.createNewFile();
-//        }
-//        
-//        return _file.getAbsolutePath();
-//    }
     public static void putFile(String api, String secret) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("X-MBX-APIKEY", api);

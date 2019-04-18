@@ -15,7 +15,9 @@ import java.util.Objects;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 /**
  * BaseEntity
@@ -23,19 +25,21 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 7569786796357595895L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @NotNull
+    @JoinColumn(name = "id", nullable = false)
+    private Integer id;
     private OffsetDateTime createdAt;
     private OffsetDateTime UpdatedAt;
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

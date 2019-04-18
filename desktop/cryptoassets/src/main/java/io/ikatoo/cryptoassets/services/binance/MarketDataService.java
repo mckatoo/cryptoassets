@@ -5,6 +5,7 @@
  */
 package io.ikatoo.cryptoassets.services.binance;
 
+import io.ikatoo.cryptoassets.config.Parameters;
 import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -111,7 +112,7 @@ public class MarketDataService extends ConsumeAPI {
                 "1M".equals(interval) ? "&interval=" + interval : "&interval=1d";
         String stringStartTime = startTime == 0 ? "" : "&startTime=" + startTime;
         String stringEndTime = endTime == 0 ? "" : "&endTime=" + endTime;
-        String stringLimit = limit == 0 || limit > 1000 ? "" : "&limit=" + limit;
+        String stringLimit = limit == 0 || limit > Parameters.getLimit() ? "" : "&limit=" + limit;
         String query = symbol + interval + stringStartTime + stringEndTime + stringLimit;
         String url = "https://api.binance.com/api/v1/klines?" + query;
         

@@ -6,7 +6,6 @@
 package io.ikatoo.cryptoassets.services.calculations;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +38,7 @@ public class Price {
                 if (countOrders == 1) {
                     valueLastBuy = cost;
                 }
-                sumCost = sumCost.add(cost);
+                sumCost = sumCost.add(cost.multiply(executedQty));
                 sumAsset = sumAsset.add(executedQty);
                 dateBuy = jsonObject.getLong("time");
             }
@@ -48,7 +47,7 @@ public class Price {
         if (countOrders == 1) {
             average = valueLastBuy;
         } else {
-            average = sumCost.divide(sumAsset, 8, RoundingMode.HALF_EVEN).multiply(maxValue);
+            average = sumCost.divide(sumAsset, 8, RoundingMode.HALF_EVEN);
         }
 
         price.put("price", average);

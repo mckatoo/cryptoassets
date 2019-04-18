@@ -5,15 +5,6 @@
  */
 package io.ikatoo.cryptoassets.interfaces;
 
-import io.ikatoo.cryptoassets.config.UserDataAPI;
-import io.ikatoo.cryptoassets.services.binance.ConsumeAPI;
-import io.ikatoo.cryptoassets.uteis.FormManager;
-import java.beans.PropertyVetoException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.tomcat.jni.Time;
-
 /**
  *
  * @author mckatoo
@@ -66,63 +57,13 @@ public class FrmSplashScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbBackgroundComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_lbBackgroundComponentShown
-        
+
     }//GEN-LAST:event_lbBackgroundComponentShown
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        FrmMain frmmain = new FrmMain();
-            lbInfo.setText("Configurando informações de acesso a Exchange");
-        try {
-            ConsumeAPI._secret = UserDataAPI.getSecretKey();
-        } catch (IOException ex) {
-            Logger.getLogger(FrmSplashScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            lbInfo.setText("Iniciando...");
-        try {
-            FormManager.openForm(frmmain);
-            this.dispose();
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(FrmSplashScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_formComponentShown
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmSplashScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmSplashScreen().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbBackground;
-    private javax.swing.JLabel lbInfo;
+    public javax.swing.JLabel lbInfo;
     // End of variables declaration//GEN-END:variables
 }

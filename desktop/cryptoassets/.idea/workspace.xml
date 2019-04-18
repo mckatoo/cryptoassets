@@ -2,37 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69739374-22be-48b9-a35f-119dd442c9f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmMain.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmMain.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmPortifolio.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmPortifolio.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/CryptoAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/CryptoAssets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/config/UserDataAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/config/UserDataAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmGraphics.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmGraphics.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmGraphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmGraphics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmPortifolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmPortifolio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/ConsumeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/ConsumeAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/OrdersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/CryptoAssets.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/CryptoAssets.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio$Rendererr.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/FrmPortifolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/renderers/Renderers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/interfaces/renderers/Renderers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/models/Portifolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/models/Portifolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/models/abstracts/PortifolioATM.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/models/abstracts/PortifolioATM.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/AccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/AccountService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/ApiSecurity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/ApiSecurity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/ConsumeAPI$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/ConsumeAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/ConsumeAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/OrdersService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/services/OrdersService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/uteis/FormManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/ikatoo/cryptoassets/uteis/FormManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cryptoassets-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/cryptoassets-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmSplashScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmSplashScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmSplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmSplashScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/renderers/Renderers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/renderers/PortifolioCellRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/binance/GeneralService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/binance/GeneralService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/binance/MarketDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/services/binance/MarketDataService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,12 +22,34 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            <state relative-caret-position="135">
+              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+              <folding>
+                <element signature="e#1034#1035#0" expanded="true" />
+                <element signature="e#1066#1067#0" expanded="true" />
+                <element signature="e#2082#2171#0" expanded="true" />
+                <element signature="e#3188#3189#0" expanded="true" />
+                <element signature="e#3241#3242#0" expanded="true" />
+                <element signature="e#4562#4563#0" expanded="true" />
+                <element signature="e#4625#4626#0" expanded="true" />
+                <element signature="e#4790#4791#0" expanded="true" />
+                <element signature="e#4856#4857#0" expanded="true" />
+                <element signature="e#6021#6022#0" expanded="true" />
+                <element signature="e#6084#6085#0" expanded="true" />
+                <element signature="e#6249#6250#0" expanded="true" />
+                <element signature="e#6315#6316#0" expanded="true" />
+                <element signature="e#7462#7463#0" expanded="true" />
+                <element signature="e#7525#7526#0" expanded="true" />
+                <element signature="e#7690#7691#0" expanded="true" />
+                <element signature="e#7756#7757#0" expanded="true" />
+                <element signature="e#7936#7937#0" expanded="true" />
+                <element signature="e#8001#8002#0" expanded="true" />
+                <element signature="e#17405#17492#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -71,6 +73,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -104,7 +107,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -160,17 +162,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1366" y="-1" width="1360" height="738" extended-state="6" />
+    <frame x="1366" y="-1" width="1366" height="738" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25342464" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26136363" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49923897" weight="0.32899022" />
@@ -181,6 +182,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50076103" side_tool="true" visible="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -207,8 +209,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/ikatoo/cryptoassets/interfaces/FrmMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="135">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding>
+            <element signature="e#1034#1035#0" expanded="true" />
+            <element signature="e#1066#1067#0" expanded="true" />
+            <element signature="e#2082#2171#0" expanded="true" />
+            <element signature="e#3188#3189#0" expanded="true" />
+            <element signature="e#3241#3242#0" expanded="true" />
+            <element signature="e#4562#4563#0" expanded="true" />
+            <element signature="e#4625#4626#0" expanded="true" />
+            <element signature="e#4790#4791#0" expanded="true" />
+            <element signature="e#4856#4857#0" expanded="true" />
+            <element signature="e#6021#6022#0" expanded="true" />
+            <element signature="e#6084#6085#0" expanded="true" />
+            <element signature="e#6249#6250#0" expanded="true" />
+            <element signature="e#6315#6316#0" expanded="true" />
+            <element signature="e#7462#7463#0" expanded="true" />
+            <element signature="e#7525#7526#0" expanded="true" />
+            <element signature="e#7690#7691#0" expanded="true" />
+            <element signature="e#7756#7757#0" expanded="true" />
+            <element signature="e#7936#7937#0" expanded="true" />
+            <element signature="e#8001#8002#0" expanded="true" />
+            <element signature="e#17405#17492#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

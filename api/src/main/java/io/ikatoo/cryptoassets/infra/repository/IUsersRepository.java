@@ -17,7 +17,7 @@ import io.ikatoo.cryptoassets.core.entity.Users;
 /**
  * UsersRepository
  */
-public interface IUsersRepository extends PagingAndSortingRepository<Users, Long> {
+public interface IUsersRepository extends PagingAndSortingRepository<Users, Integer> {
     List<Users> findByNameIgnoreCaseContaining(String user);
 
     List<Users> findByEmailIgnoreCaseContaining(String email);

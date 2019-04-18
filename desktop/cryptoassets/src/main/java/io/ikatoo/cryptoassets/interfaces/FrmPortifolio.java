@@ -6,13 +6,19 @@
 package io.ikatoo.cryptoassets.interfaces;
 
 import io.ikatoo.cryptoassets.config.Parameters;
-import io.ikatoo.cryptoassets.interfaces.renderers.Renderers;
+import io.ikatoo.cryptoassets.interfaces.renderers.DefaultCellRenderer;
+import io.ikatoo.cryptoassets.interfaces.renderers.PortifolioCellRenderer;
 import io.ikatoo.cryptoassets.models.Portifolio;
 import io.ikatoo.cryptoassets.models.abstracts.PortifolioATM;
 import io.ikatoo.cryptoassets.services.binance.AccountService;
 import io.ikatoo.cryptoassets.services.binance.MarketDataService;
 import io.ikatoo.cryptoassets.services.binance.OrdersService;
+import io.ikatoo.cryptoassets.services.calculations.Financial;
 import io.ikatoo.cryptoassets.services.calculations.Price;
+import io.ikatoo.cryptoassets.uteis.FormManager;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.beans.PropertyVetoException;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -21,10 +27,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneLayout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -35,6 +43,10 @@ import org.json.JSONObject;
 public class FrmPortifolio extends javax.swing.JInternalFrame {
 
     private final ExecutorService _executorService;
+
+    private String pathIcon;
+    private String totalBtc;
+    private String profitBtc;
 
     /**
      * Creates new form frmPortifolio
@@ -61,9 +73,6 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbAssets = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -97,44 +106,18 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
             }
         });
 
-        tbAssets.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tbAssets.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tbAssets.getTableHeader().setReorderingAllowed(false);
-        tbAssets.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                tbAssetsMouseMoved(evt);
-            }
-        });
-        tbAssets.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbAssetsMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tbAssets);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 662, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 453, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleParent(this);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -148,8 +131,6 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
             @Override
             public Void call() throws Exception {
 
-//                while (true) {
-//                    TimeUnit.SECONDS.sleep(30);
                 AccountService accountService = new AccountService();
                 OrdersService orderService = new OrdersService();
                 MarketDataService marketDataService = new MarketDataService();
@@ -157,8 +138,7 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                 try {
                     JSONArray balance = accountService.getBalances(100000);
 
-                    PortifolioATM model = new PortifolioATM();
-
+//                    PortifolioATM model = new PortifolioATM();
                     for (int i = 0; i < balance.length(); i++) {
                         JSONObject jsonBalance = (JSONObject) balance.get(i);
 
@@ -175,20 +155,20 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                             long dateBuy = 0;
 
                             if (!(asset.equals("BTC")) && (allOrders.length() > 0)) {
-//                                JSONObject jsonAllOrders = allOrders.getJSONObject(0);
                                 JSONObject averagePrice = Price.averagePrice(allOrders, total);
                                 _price = averagePrice.getBigDecimal("price");
                                 dateBuy = averagePrice.getLong("dateBuy");
                             }
-                            JLabel labelImage = new JLabel();
                             String pathImage = new File("").getCanonicalPath() + "/src/main/java/io/ikatoo/cryptoassets/interfaces/icons/coins/32/color/" + jsonBalance.get("asset").toString().toLowerCase() + ".png";
-                            labelImage.setIcon(new ImageIcon(pathImage));
-//                            JSONArray marketDataArray = new MarketDataService().getRecentTradesList(asset);
-//                            JSONObject jsonCurrent = marketDataArray.getJSONObject(0);
-//                            BigDecimal current = jsonCurrent.isEmpty() ? zero : jsonCurrent.getBigDecimal("price");
                             BigDecimal current = marketDataService.getSymbolPriceTicker(asset).getBigDecimal("price");
-                            BigDecimal profitMoney = total.multiply(current).subtract(total.multiply(_price));
-                            BigDecimal profitPercent = (profitMoney.subtract(total.multiply(current))).multiply(new BigDecimal(100));
+                            BigDecimal profitMoney, profitPercent;
+                            if ((current.compareTo(zero) == 1) && (_price.compareTo(zero) == 1)) {
+                                profitMoney = Financial.calcProfit(current, _price);
+                                profitPercent = Financial.calcProfitPercent(current, _price);
+                            } else {
+                                profitMoney = zero;
+                                profitPercent = zero;
+                            }
 
                             Portifolio portifolio = new Portifolio(
                                     new ImageIcon(pathImage),
@@ -201,53 +181,54 @@ public class FrmPortifolio extends javax.swing.JInternalFrame {
                                     locked,
                                     total.setScale(8, RoundingMode.HALF_EVEN)
                             );
+                            
+//                            model.add(portifolio);
+//                            tbAssets.setModel(model);
+//                            tbAssets.setRowHeight(40);
+//                            for (int j = 0; j < tbAssets.getColumnCount(); j++) {
+//                                if ((j == 0) || (j == 5)) {
+//                                    tbAssets.getColumnModel().getColumn(j).setCellRenderer(new PortifolioCellRenderer());
+//                                } else {
+//                                    tbAssets.getColumnModel().getColumn(j).setCellRenderer(new DefaultCellRenderer());
+//                                }
+//                            }
 
-                            model.add(portifolio);
-                            tbAssets.setModel(model);
-                            tbAssets.setRowHeight(40);
-                            tbAssets.getColumnModel().getColumn(0).setCellRenderer(new Renderers());
-
-                            DefaultTableCellRenderer cell = new DefaultTableCellRenderer();
-                            cell.setHorizontalAlignment(SwingConstants.CENTER);
-                            cell.setToolTipText("Profit = " + profitMoney.setScale(8, RoundingMode.HALF_EVEN) + "BTC");
-
-                            for (int j = 1; j < 9; j++) {
-                                tbAssets.getColumnModel().getColumn(j).setCellRenderer(cell);
-                            }
-
-                            tbAssets.getColumnModel().getColumn(0).setMaxWidth(40);
-                            tbAssets.getColumnModel().getColumn(1).setMaxWidth(50);
-                            tbAssets.getColumnModel().getColumn(5).setMaxWidth(90);
-                            tbAssets.getColumnModel().getColumn(0).setMinWidth(40);
-                            tbAssets.getColumnModel().getColumn(1).setMinWidth(50);
-                            tbAssets.getColumnModel().getColumn(5).setMinWidth(90);
-
+//                            tbAssets.getColumnModel().getColumn(0).setMaxWidth(40);
+//                            tbAssets.getColumnModel().getColumn(1).setMaxWidth(50);
+//                            tbAssets.getColumnModel().getColumn(5).setMaxWidth(90);
+//                            tbAssets.getColumnModel().getColumn(0).setMinWidth(40);
+//                            tbAssets.getColumnModel().getColumn(1).setMinWidth(50);
+//                            tbAssets.getColumnModel().getColumn(5).setMinWidth(90);
                         }
                     }
 
                 } catch (Exception ex) {
+                    System.out.println(ex);
                 }
 
-//                }
                 return null;
             }
         });
 
-    }//GEN-LAST:event_formComponentShown
 
-    private void tbAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseClicked
-        System.out.println(tbAssets.getValueAt(tbAssets.getSelectedRow(), 8));
-    }//GEN-LAST:event_tbAssetsMouseClicked
+    }//GEN-LAST:event_formComponentShown
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
     }//GEN-LAST:event_formInternalFrameActivated
 
-    private void tbAssetsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAssetsMouseMoved
-    }//GEN-LAST:event_tbAssetsMouseMoved
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbAssets;
     // End of variables declaration//GEN-END:variables
+
+    public String getTotalBtc() {
+        return totalBtc;
+    }
+
+    public String getProfitBtc() {
+        return profitBtc;
+    }
+
+    public String getPathIcon() {
+        return pathIcon;
+    }
 }

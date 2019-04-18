@@ -8,6 +8,8 @@ package io.ikatoo.cryptoassets.interfaces;
 import io.ikatoo.cryptoassets.services.binance.GeneralService;
 import io.ikatoo.cryptoassets.uteis.FormManager;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Label;
 import java.beans.PropertyVetoException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -15,8 +17,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -76,6 +83,7 @@ public class FrmMain extends javax.swing.JFrame {
         pnStatus = new javax.swing.JPanel();
         lbStatus = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jDesktopPane2 = new javax.swing.JDesktopPane();
         jPanel2 = new javax.swing.JPanel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
 
@@ -200,15 +208,28 @@ public class FrmMain extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(26, 82, 134));
 
+        jDesktopPane2.setBackground(new java.awt.Color(26, 82, 134));
+
+        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
+        jDesktopPane2.setLayout(jDesktopPane2Layout);
+        jDesktopPane2Layout.setHorizontalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 186, Short.MAX_VALUE)
+        );
+        jDesktopPane2Layout.setVerticalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
+            .addComponent(jDesktopPane2)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addComponent(jDesktopPane2)
         );
 
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
@@ -221,7 +242,7 @@ public class FrmMain extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,6 +295,13 @@ public class FrmMain extends javax.swing.JFrame {
                 return null;
             }
         });
+        try {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            executorService.shutdown();
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
@@ -371,16 +399,17 @@ public class FrmMain extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    javax.swing.ButtonGroup buttonGroup1;
-    javax.swing.JDesktopPane jDesktopPane1;
-    javax.swing.JPanel jPanel1;
-    javax.swing.JPanel jPanel2;
-    javax.swing.JPanel jPanel3;
-    javax.swing.JPanel jPanel4;
-    javax.swing.JToggleButton jToggleButton1;
-    javax.swing.JToggleButton jToggleButton2;
-    javax.swing.JToggleButton jToggleButton3;
-    javax.swing.JLabel lbStatus;
-    javax.swing.JPanel pnStatus;
+    public static javax.swing.ButtonGroup buttonGroup1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane2;
+    public static javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel2;
+    public static javax.swing.JPanel jPanel3;
+    public static javax.swing.JPanel jPanel4;
+    public static javax.swing.JToggleButton jToggleButton1;
+    public static javax.swing.JToggleButton jToggleButton2;
+    public static javax.swing.JToggleButton jToggleButton3;
+    public static javax.swing.JLabel lbStatus;
+    public static javax.swing.JPanel pnStatus;
     // End of variables declaration//GEN-END:variables
 }

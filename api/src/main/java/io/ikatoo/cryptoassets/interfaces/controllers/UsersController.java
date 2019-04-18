@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.ikatoo.cryptoassets.core.entity.Users;
 import io.ikatoo.cryptoassets.infra.repository.IUsersRepository;
-import io.ikatoo.cryptoassets.interfaces.error.CustomErrorType;
 import io.ikatoo.cryptoassets.interfaces.error.ResourceNotFoundException;
 
 /**
@@ -48,7 +47,7 @@ public class UsersController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable("id") Integer id) {
         verifyIfUserExists(id);
         Optional<Users> user = _usersRepo.findById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -77,13 +76,13 @@ public class UsersController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
         verifyIfUserExists(id);
         _usersRepo.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    private void verifyIfUserExists(Long id) {
+    private void verifyIfUserExists(Integer id) {
         Optional<Users> user = _usersRepo.findById(id);
         if (!user.isPresent())
             throw new ResourceNotFoundException("User not found for ID: " + id);
